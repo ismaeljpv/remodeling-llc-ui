@@ -1,24 +1,44 @@
-import logo from './logo.svg';
-import './App.css';
+import React from 'react';
+import { BrowserRouter as Router, Route, Redirect } from "react-router-dom";
+import { Home, Login, Cpanel, PasswordRecovery } from './modules';
+import ProtectedRoute from './security/ProtectedRoute';
+import LoginService from './services/LoginServices';
+import Authentication from './security/Authentication';
 
 function App() {
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <Router>
+      <>
+        <Route path="/"
+          component={Home}
+          exact
+        />
+
+        <Route path="/login"
+          render={({ match: { url } }) => (
+            <>
+              <Route path={`${url}/`} render={() =>
+                (<Login signIn={LoginService.signIn} />)
+              }
+                exact />
+
+              <Route path={`${url}/password/recovery`} render={() => !Authentication.isLoggedIn ?
+                (<PasswordRecovery
+                  sendPasswordToken={LoginService.sendPasswordToken}
+                  passwordChange={LoginService.passwordChange} />) :
+                (<Redirect to={{ pathname: '/login' }} />)
+              }
+              />
+            </>
+          )}
+        />
+
+        <ProtectedRoute path="/cpanel"
+          component={Cpanel}
+        />
+      </>
+    </Router>
   );
 }
 
