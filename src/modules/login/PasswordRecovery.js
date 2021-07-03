@@ -108,20 +108,27 @@ const PasswordRecovery = ({ sendPasswordToken, passwordChange }) => {
                             <input type={showPassword ? "text" : "password"} placeholder="New Password" name="password"
                                 value={password} onChange={(e) => setPassword(e.target.value)}
                             />
-                            <i className="i-login icon-eye-open icon-1x" onClick={togglePasswordVisiblity} />
+                            <i className="i-login bi-eye-fill" onClick={togglePasswordVisiblity} />
                         </div>
                         <div className="form-group-login">
                             <input type={showConfirmPassword ? "text" : "password"} placeholder="Confirm Password" name="confirmPassword"
                                 value={confirmPassword} onChange={(e) => setConfirmPassword(e.target.value)}
                             />
-                            <i className="i-login icon-eye-open icon-1x" onClick={toggleConfirmPasswordVisiblity} />
+                            <i className="i-login bi-eye-fill" onClick={toggleConfirmPasswordVisiblity} />
                         </div>
                         <div className="form-group-login">
                             <input type="text" placeholder="Insert Your Token " name="token"
                                 value={token} onChange={(e) => setToken(e.target.value)}
                             />
                         </div>
-                        <Link to="#" className="link" onClick={() => {  setIsTokenSended(false) }} >Resend token</Link>
+                        <div className="row">
+                            <div className="col-log-6 col-md-6 col-sm-6">
+                                <Link to="/login" className="link center" >Back to login</Link>
+                            </div>
+                            <div className="col-log-6 col-md-6 col-sm-6 ">
+                                <Link to="#" className="link center" onClick={() => { setIsTokenSended(false) }} >Resend token</Link>
+                            </div>
+                        </div>
                     </>
                     :
                     <div className="form-group-login">

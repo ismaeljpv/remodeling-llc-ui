@@ -1,77 +1,99 @@
-import TeamImages from '../../../assets/img/team';
-import Icons from '../../../assets/img/icons';
+import Team1 from '../../../assets/img/team/team-1.jpg';
+import Team2 from '../../../assets/img/team/team-2.jpg';
+import Team3 from '../../../assets/img/team/team-3.jpg';
+import Team4 from '../../../assets/img/team/team-4.jpg';
 
 const Team = () => {
-    return (
-        <section id="about" className="section">
-		<div className="container">
-			<h4>Who We Are</h4>
-			<div className="row">
-				<div className="span4 offset1">
-					<div>
-						<h2>We live with <strong>creativity</strong></h2>
-						<p>
-							Li Europan lingues es membres del sam familie. Lor separat existentie es un myth. Por scientie, musica, sport etc, litot Europa usa li sam vocabular. Li lingues differe solmen in li grammatica, li pronunciation e li plu commun vocabules. Omnicos directe
-							al desirabilite de un nov lingua franca: On refusa continuar payar custosi traductores.
-						</p>
+	return (
+		<>
+			<section id="team" className="team">
+				<div className="container">
+
+					<div className="section-title" data-aos="fade-up">
+						<h2>Team</h2>
+						<p>Magnam dolores commodi suscipit. Necessitatibus eius consequatur ex aliquid fuga eum quidem. Sit sint consectetur velit. Quisquam quos quisquam cupiditate. Et nemo qui impedit suscipit alias ea. Quia fugiat sit in iste officiis commodi quidem hic quas.</p>
 					</div>
-				</div>
-				<div className="span6">
-					<div className="aligncenter">
-						<img src={Icons.creativity} alt="" />
+
+					<div className="row">
+
+						<div className="col-xl-3 col-lg-4 col-md-6" data-aos="fade-up">
+							<div className="member">
+								<img src={ Team1 } className="img-fluid" alt="" />
+								<div className="member-info">
+									<div className="member-info-content">
+										<h4>Walter White</h4>
+										<span>Chief Executive Officer</span>
+									</div>
+									<div className="social">
+										<i className="bi bi-twitter"></i>
+										<i className="bi bi-facebook"></i>
+										<i className="bi bi-instagram"></i>
+										<i className="bi bi-linkedin"></i>
+									</div>
+								</div>
+							</div>
+						</div>
+
+						<div className="col-xl-3 col-lg-4 col-md-6" data-aos="fade-up" data-aos-delay="100">
+							<div className="member">
+								<img src={ Team2 } className="img-fluid" alt="" />
+								<div className="member-info">
+									<div className="member-info-content">
+										<h4>Sarah Jhonson</h4>
+										<span>Product Manager</span>
+									</div>
+									<div className="social">
+										<i className="bi bi-twitter"></i>
+										<i className="bi bi-facebook"></i>
+										<i className="bi bi-instagram"></i>
+										<i className="bi bi-linkedin"></i>
+									</div>
+								</div>
+							</div>
+						</div>
+
+						<div className="col-xl-3 col-lg-4 col-md-6" data-aos="fade-up" data-aos-delay="200">
+							<div className="member">
+								<img src={ Team3 } className="img-fluid" alt="" />
+								<div className="member-info">
+									<div className="member-info-content">
+										<h4>William Anderson</h4>
+										<span>CTO</span>
+									</div>
+									<div className="social">
+										<i className="bi bi-twitter"></i>
+										<i className="bi bi-facebook"></i>
+										<i className="bi bi-instagram"></i>
+										<i className="bi bi-linkedin"></i>
+									</div>
+								</div>
+							</div>
+						</div>
+
+						<div className="col-xl-3 col-lg-4 col-md-6" data-aos="fade-up" data-aos-delay="300">
+							<div className="member">
+								<img src={ Team4 } className="img-fluid" alt="" />
+								<div className="member-info">
+									<div className="member-info-content">
+										<h4>Amanda Jepson</h4>
+										<span>Accountant</span>
+									</div>
+									<div className="social">
+										<i className="bi bi-twitter"></i>
+										<i className="bi bi-facebook"></i>
+										<i className="bi bi-instagram"></i>
+										<i className="bi bi-linkedin"></i>
+									</div>
+								</div>
+							</div>
+						</div>
+
 					</div>
+
 				</div>
-			</div>
-			<div className="row">
-				<div className="span2 offset1 flyIn">
-					<div className="people">
-						<img className="team-thumb img-circle" src={TeamImages.Img1} alt="" />
-						<h3>John Doe</h3>
-						<p>
-							Art director
-						</p>
-					</div>
-				</div>
-				<div className="span2 flyIn">
-					<div className="people">
-						<img className="team-thumb img-circle" src={TeamImages.Img2} alt="" />
-						<h3>Mike Doe</h3>
-						<p>
-							Web developer
-						</p>
-					</div>
-				</div>
-				<div className="span2 flyIn">
-					<div className="people">
-						<img className="team-thumb img-circle" src={TeamImages.Img3} alt="" />
-						<h3>Neil Doe</h3>
-						<p>
-							Web designer
-						</p>
-					</div>
-				</div>
-				<div className="span2 flyIn">
-					<div className="people">
-						<img className="team-thumb img-circle" src={TeamImages.Img4} alt="" />
-						<h3>Mark Joe</h3>
-						<p>
-							UI designer
-						</p>
-					</div>
-				</div>
-				<div className="span2 flyIn">
-					<div className="people">
-						<img className="team-thumb img-circle" src={TeamImages.Img5} alt="" />
-						<h3>Stephen B</h3>
-						<p>
-							Digital imaging
-						</p>
-					</div>
-				</div>
-			</div>
-		</div>
-	</section>
-    );
+			</section>
+		</>
+	);
 }
 
 export default Team;

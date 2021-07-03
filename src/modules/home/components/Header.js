@@ -1,40 +1,19 @@
-import ImgBackground from '../../../assets/img/logo-image.png';
+import Navbar from './Navbar';
+import { Link } from 'react-router-dom';
 
 const Header = () => {
-    return (
-        <div id="header-wrapper" className="header-slider">
-		<header className="clearfix">
-			<div className="logo">
-				<img src={ImgBackground} alt="" />
-			</div>
-			<div className="container">
-				<div className="row">
-					<div className="span12">
-						<div id="main-flexslider" className="flexslider">
-							<ul className="slides">
-								<li>
-									<p className="home-slide-content">
-										<strong>creative</strong> and passion
-									</p>
-								</li>
-								<li>
-									<p className="home-slide-content">
-										Eat and drink <strong>design</strong>
-									</p>
-								</li>
-								<li>
-									<p className="home-slide-content">
-										We loves <strong>simplicity</strong>
-									</p>
-								</li>
-							</ul>
-						</div>
+	return (
+		<>
+			<header id="header" className="fixed-top d-flex align-items-center">
+				<div className="container d-flex justify-content-between">
+					<div className="logo">
+						<h1><Link className="navbar-brand" to="/">Remodeling LLC</Link></h1>
 					</div>
+					<Navbar />
 				</div>
-			</div>
-		</header>
-	</div>
-    );
+			</header>
+		</>
+	);
 }
 
 export default Header;

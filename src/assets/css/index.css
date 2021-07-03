@@ -99,8 +99,19 @@ i.icon-bgdark.active {
   position: relative;
   margin-bottom: 10px;
 }
-.form-group-login input[type="text"],
-input[type="password"] {
+
+.form-group-login > input[type="text"] {
+  width: 100%;
+  border: none;
+  padding: 15px 10px;
+  background: #fff;
+  color: #666;
+  border-radius: 4px;
+  -moz-border-radius: 4px;
+  -webkit-border-radius: 4px;
+}
+
+.form-group-login > input[type="password"] {
   width: 100%;
   border: none;
   padding: 15px 10px;
@@ -237,11 +248,15 @@ input[type="password"] {
 
 .i-login {
   position: absolute;
-  top: 20%;
+  top: 30%;
   right: 5%;
 }
 
 .i-login:hover {
   color: #00a777;
   cursor: pointer;
+}
+
+.center {
+  text-align: center;
 }

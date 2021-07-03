@@ -31,10 +31,18 @@ const Login = ({ signIn }) => {
             });
             return
         }
-        await signIn({ username, password });
-        setUsername('');
-        setPassword('');
-        history.push('/cpanel');
+        const response = await signIn({ username, password });
+        if (response.success) {
+            setUsername('');
+            setPassword('');
+            history.push('/cpanel');
+        } else {
+            Swal.fire({
+                icon: 'error',
+                text: 'Invalid username and/or password'
+            });
+            return
+        }
     }
 
     return (
@@ -50,7 +58,7 @@ const Login = ({ signIn }) => {
                     <input type={showPassword ? "text" : "password"} placeholder="Password" name="password"
                         value={password} onChange={(e) => setPassword(e.target.value)}
                     />
-                    <i className="i-login icon-eye-open icon-1x" onClick={togglePasswordVisiblity} />
+                    <i className="i-login bi-eye-fill" onClick={togglePasswordVisiblity} />
                 </div>
                 <Link className="link" to={`${url}/password/recovery`}>Lost your password?</Link>
                 <input type="submit" className="log-btn" value="Login" />

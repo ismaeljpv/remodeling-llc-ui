@@ -1,46 +1,78 @@
 
 const ContactForm = () => {
     return (
-        <section id="contact" className="section green">
-            <div className="container">
-                <h4>Get in Touch</h4>
-                <p>
-                    Reque facer nostro et ius, cu persius mnesarchum disputando eam, clita prompta et mel vidisse phaedrum pri et. Facilisis posidonium ex his. Mutat iudico vis in, mea aeque tamquam scripserit an, mea eu ignota viderer probatus. Lorem legere consetetur ei
-                    eum. Sumo aeque assentior te eam, pri nominati posidonium consttuam
-                </p>
-                <div className="blankdivider30">
-                </div>
+        <>
+            <section id="contact" className="contact section-bg">
+                <div className="container">
 
-                <div className="row">
-                    <div className="cform" id="contact-form">
-                        <form action="post" method="post" className="contactForm">
-                            <div className="row">
-                            <div className="span6">
-									<div className="field your-name form-group">
-										<input type="text" name="name" className="form-control" id="name" placeholder="Your Name" data-rule="minlen:4" data-msg="Please enter at least 4 chars" />
-									</div>
-									<div className="field your-email form-group">
-										<input type="text" className="form-control" name="email" id="email" placeholder="Your Email" data-rule="email" data-msg="Please enter a valid email" />
-				
-									</div>
-									<div className="field subject form-group">
-										<input type="text" className="form-control" name="subject" id="subject" placeholder="Subject" data-rule="minlen:4" data-msg="Please enter at least 8 chars of subject" />
-										<div className="validation"></div>
-									</div>
-								</div>
-                                <div className="span6">
-                                    <div className="field message form-group">
-                                        <textarea className="form-control" name="message" rows="5" data-rule="required" data-msg="Please write something for us" placeholder="Message"></textarea>
-                                        <div className="validation"></div>
-                                    </div>
-                                    <input type="submit" value="Send message" className="btn btn-theme pull-left" />
-                                </div>
-                            </div>
-                        </form>
+                    <div className="section-title" data-aos="fade-up">
+                        <h2>Contact</h2>
+                        <p>Magnam dolores commodi suscipit. Necessitatibus eius consequatur ex aliquid fuga eum quidem. Sit sint consectetur velit. Quisquam quos quisquam cupiditate. Et nemo qui impedit suscipit alias ea. Quia fugiat sit in iste officiis commodi quidem hic quas.</p>
                     </div>
+
+                    <div className="row no-gutters justify-content-center" data-aos="fade-up">
+
+                        <div className="col-lg-5 d-flex align-items-stretch">
+                            <div className="info">
+                                <div className="address">
+                                    <i className="bi bi-geo-alt"></i>
+                                    <h4>Location:</h4>
+                                    <p>A108 Adam Street, New York, NY 535022</p>
+                                </div>
+
+                                <div className="email mt-4">
+                                    <i className="bi bi-envelope"></i>
+                                    <h4>Email:</h4>
+                                    <p>info@example.com</p>
+                                </div>
+
+                                <div className="phone mt-4">
+                                    <i className="bi bi-phone"></i>
+                                    <h4>Call:</h4>
+                                    <p>+1 5589 55488 55s</p>
+                                </div>
+
+                            </div>
+
+                        </div>
+
+                        <div className="col-lg-5 d-flex align-items-stretch">
+                            <iframe title="googlemaps-llc" className="map-iframe" src="https://www.google.com/maps/embed?pb=!1m14!1m8!1m3!1d12097.433213460943!2d-74.0062269!3d40.7101282!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0xb89d1fe6bc499443!2sDowntown+Conference+Center!5e0!3m2!1smk!2sbg!4v1539943755621" frameBorder="0" allowFullScreen></iframe>
+                        </div>
+
+                    </div>
+
+                    <div className="row mt-5 justify-content-center" data-aos="fade-up">
+                        <div className="col-lg-10">
+                            <form  method="post" className="php-email-form">
+                                <div className="row">
+                                    <div className="col-md-6 form-group">
+                                        <input type="text" name="name" className="form-control" id="name" placeholder="Your Name" required />
+                                    </div>
+                                    <div className="col-md-6 form-group mt-3 mt-md-0">
+                                        <input type="email" className="form-control" name="email" id="email" placeholder="Your Email" required />
+                                    </div>
+                                </div>
+                                <div className="form-group mt-3">
+                                    <input type="text" className="form-control" name="subject" id="subject" placeholder="Subject" required />
+                                </div>
+                                <div className="form-group mt-3">
+                                    <textarea className="form-control" name="message" rows="5" placeholder="Message" required></textarea>
+                                </div>
+                                <div className="my-3">
+                                    <div className="loading">Loading</div>
+                                    <div className="error-message"></div>
+                                    <div className="sent-message">Your message has been sent. Thank you!</div>
+                                </div>
+                                <div className="text-center"><button type="submit">Send Message</button></div>
+                            </form>
+                        </div>
+
+                    </div>
+
                 </div>
-            </div>
-        </section>
+            </section>
+        </>
     );
 };
 
