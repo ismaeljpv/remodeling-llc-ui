@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useMemo, useCallback } from 'react';
 import { Link, useRouteMatch } from 'react-router-dom';
 import DataTable from 'react-data-table-component';
 import Moment from 'react-moment';
@@ -13,19 +13,56 @@ const Works = () => {
     const [shown, setShown] = useState(false);
     const [work, setWork] = useState(null);
     const [tags, setTags] = useState([]);
+    const [totalRows, setTotalRows] = useState(0);
+    const [perPage, setPerPage] = useState(5);
+    const [currentPage, setCurrentPage] = useState(1);
+
+    const getWorks = useCallback(async (page, size = perPage) => {
+        const response = await WorkServices.getWorksPaginated((page - 1), size);
+        if (response.success) {
+            setWorks(response.data.content);
+            setTotalRows(response.data.totalElements);
+        }
+    }, [perPage]);
+
+    const deleteWork = useCallback(async id => {
+        const response = await WorkServices.deleteWork(id);
+        if (response.success) {
+            const filterWorks = works.filter(w => w.id !== id);
+            setWorks(filterWorks);
+            Swal.fire({
+                icon: 'success',
+                text: 'Work post deleted!'
+            });
+        } else {
+            Swal.fire({
+                icon: 'error',
+                text: 'Ooops!! there was an error deleting the work post'
+            });
+        }
+    }, [works]);
+
+    const confirmDeleteOperation = useCallback((data) => {
+        Swal.fire({
+            title: 'Are you sure you want to delete this work post?',
+            text: "You won't be able to revert this!",
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#d33',
+            confirmButtonText: 'Yes, delete it!'
+        }).then(async (result) => {
+            if (result.isConfirmed) {
+                await deleteWork(data.id);
+            }
+        })
+    }, [deleteWork]);
 
     useEffect(() => {
-        const getWorks = async () => {
-            const response = await WorkServices.getWorks();
-            if (response.success) {
-                setWorks(response.data);
-            }
-        }
+        getWorks(currentPage);
+    }, [currentPage, getWorks]);
 
-        getWorks();
-    }, []);
-
-    const colums = [
+    const colums = useMemo(() => [
         {
             name: 'Date',
             cell: row => <Moment format="DD/MM/YYYY">{row.createdAt}</Moment>
@@ -53,40 +90,12 @@ const Works = () => {
             </div>
 
         }
-    ];
+    ], [confirmDeleteOperation, url]);
 
-    const confirmDeleteOperation = (data) => {
-        Swal.fire({
-            title: 'Are you sure you want to delete this work post?',
-            text: "You won't be able to revert this!",
-            icon: 'warning',
-            showCancelButton: true,
-            confirmButtonColor: '#3085d6',
-            cancelButtonColor: '#d33',
-            confirmButtonText: 'Yes, delete it!'
-        }).then(async (result) => {
-            if (result.isConfirmed) {
-                await deleteWork(data.id);
-            }
-        })
-    }
-
-    const deleteWork = async id => {
-        const response = await WorkServices.deleteWork(id);
-        if (response.success) {
-            const filterWorks = works.filter(w => w.id !== id);
-            setWorks(filterWorks);
-            Swal.fire({
-                icon: 'success',
-                text: 'Work post deleted!'
-            });
-        } else {
-            Swal.fire({
-                icon: 'error',
-                text: 'Ooops!! there was an error deleting the work post'
-            });
-        }
-    }
+    const handlePerRowsChange = async (newPerPage, page) => {
+        getWorks(page, newPerPage);
+        setPerPage(newPerPage);
+    };
 
     const onRowClicked = async row => {
         const response = await WorkServices.getWorkThumbnail(row.id);
@@ -124,6 +133,13 @@ const Works = () => {
                     highlightOnHover
                     pointerOnHover
                     pagination
+                    paginationServer
+                    paginationPerPage={perPage}
+                    paginationRowsPerPageOptions={[5, 10, 20, 30, 40, 50]}
+                    paginationTotalRows={totalRows}
+                    paginationDefaultPage={currentPage }
+                    onChangeRowsPerPage={handlePerRowsChange}
+                    onChangePage={page => (setCurrentPage(page))}
                 />
             </div>
             {(shown) ?
@@ -155,8 +171,8 @@ const Works = () => {
                                     </div>
                                 </div>
                                 <div className="modal-footer">
-                                    <button type="button" className="btn btn-secondary" 
-                                            data-bs-dismiss="modal" onClick={resetModal} >Close</button>
+                                    <button type="button" className="btn btn-secondary"
+                                        data-bs-dismiss="modal" onClick={resetModal} >Close</button>
                                 </div>
                             </div>
                         </div>

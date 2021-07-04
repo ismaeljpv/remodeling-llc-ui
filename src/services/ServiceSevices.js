@@ -15,6 +15,18 @@ const getServices = async () => {
     return (res.status === 200) ? { success: true, data } : { success: false, message: data.message } ;
 }
 
+const getServicesPaginated = async (page, size) => {
+    const res = await fetch(`${api}/services?page=${page}&size=${size}`, {
+        method: 'GET',
+        headers: {
+            'Content-type': 'application/json',
+            'Authorization': Authentication.getToken()
+        }
+    });
+    const data = await res.json();
+    return (res.status === 200) ? { success: true, data } : { success: false, message: data.message } ;
+}
+
 const getServicesById = async id => {
     const res = await fetch(`${api}/services/${id}`, {
         method: 'GET',
@@ -78,6 +90,7 @@ const deleteService = async id => {
 
 const ServiceSevices = {
     getServices,
+    getServicesPaginated,
     getServicesById,
     getServiceThumbnail,
     createService,

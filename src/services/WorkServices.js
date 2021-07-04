@@ -15,6 +15,18 @@ const getWorks = async () => {
     return (res.status === 200) ? { success: true, data } : { success: false, message: data.message } ;
 }
 
+const getWorksPaginated = async (page, size) => {
+    const res = await fetch(`${api}/post?page=${page}&size=${size}`, {
+        method: 'GET',
+        headers: {
+            'Content-type': 'application/json',
+            'Authorization': Authentication.getToken()
+        }
+    });
+    const data = await res.json();
+    return (res.status === 200) ? { success: true, data } : { success: false, message: data.message } ;
+}
+
 const getWorkById = async id => {
     const res = await fetch(`${api}/post/${id}`, {
         method: 'GET',
@@ -78,6 +90,7 @@ const deleteWork = async id => {
 
 const WorkServices = {
     getWorks,
+    getWorksPaginated,
     getWorkById,
     getWorkThumbnail,
     createWork,

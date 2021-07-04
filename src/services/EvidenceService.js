@@ -15,6 +15,17 @@ const getAllEvidenceByPost = async id => {
     return (res.status === 200) ? { success: true, data: data.content} : { success: false } ;
 }
 
+const getAllEvidenceByPostPaginated = async (id, page, size)=> {
+    const res = await fetch(`${api}/postEvidence?postId=${id}&page=${page}&size=${size}`, {
+        method: 'GET',
+        headers: {
+            'Content-type': 'application/json'
+        }
+    });
+    const data = await res.json();
+    return (res.status === 200) ? { success: true, data: data} : { success: false } ;
+}
+
 const getEvidencePictureById = async id => {
     const res = await fetch(`${api}/postEvidence/picture/${id}`, {
         method: 'GET',
@@ -52,6 +63,7 @@ const deleteEvidence = async id => {
 
 const EvidenceService = {
     getAllEvidenceByPost,
+    getAllEvidenceByPostPaginated,
     getEvidencePictureById,
     uploadContent,
     deleteEvidence

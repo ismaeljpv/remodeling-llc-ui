@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useMemo, useCallback } from 'react';
 import { useParams } from 'react-router';
 import { Link } from 'react-router-dom';
 import DataTable from 'react-data-table-component';
@@ -14,8 +14,76 @@ const ContentManager = () => {
     const [evidence, setEvidence] = useState([]);
     const [image, setImage] = useState(null);
     const [shown, setShown] = useState(false);
+    const [totalRows, setTotalRows] = useState(0);
+    const [perPage, setPerPage] = useState(3);
+    const [currentPage, setCurrentPage] = useState(1);
 
-    const colums = [
+    const getAllEvidenceByPost = useCallback(async (id, page, size = perPage) => {
+        const response = await EvidenceService.getAllEvidenceByPostPaginated(id, (page - 1), size);
+        if (response.success) {
+            setEvidence(response.data.content);
+            setTotalRows(response.data.totalElements);
+        }
+    }, [perPage]);
+
+    const getWorkById = useCallback(async id => {
+        const response = await WorkServices.getWorkById(id);
+        if (response.success) {
+            setTitle(response.data.title);
+        }
+    }, []);
+
+    useEffect(() => {
+
+        getAllEvidenceByPost(parseInt(id), currentPage);
+        getWorkById(parseInt(id));
+    }, [getAllEvidenceByPost, getWorkById, id, currentPage]);
+
+    const deleteEvidence = useCallback(async id => {
+        const response = await EvidenceService.deleteEvidence(id);
+        if (response.success) {
+            const filterEvidence = evidence.filter(e => e.id !== id);
+            setEvidence(filterEvidence);
+            Swal.fire({
+                icon: 'success',
+                text: 'Content deleted!'
+            });
+        } else {
+            Swal.fire({
+                icon: 'error',
+                text: 'Ooops!! there was an error deleting the content'
+            });
+        }
+    }, [evidence]);
+
+    const confirmDeleteOperation = useCallback((data) => {
+        Swal.fire({
+            title: 'Are you sure you want to delete this content?',
+            text: "You won't be able to revert this!",
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#d33',
+            confirmButtonText: 'Yes, delete it!'
+        }).then(async (result) => {
+            if (result.isConfirmed) {
+                await deleteEvidence(data.id);
+            }
+        })
+    }, [deleteEvidence]);
+
+    const getPictureByRow = useCallback(async row => {
+        const response = await EvidenceService.getEvidencePictureById(row.id);
+        if (response.status === 200) {
+            const blob = await response.blob();
+            setImage(URL.createObjectURL(blob));
+        }
+        setShown(true);
+        const button = document.getElementById("EvidenceModalBtn");
+        button.click();
+    }, []);
+
+    const colums = useMemo(() => [
         {
             name: 'Media Type',
             selector: 'type'
@@ -35,71 +103,12 @@ const ContentManager = () => {
             </div>
 
         }
-    ];
+    ], [confirmDeleteOperation, getPictureByRow]);
 
-    useEffect(() => {
-
-        const getAllEvidenceByPost = async id => {
-            const response = await EvidenceService.getAllEvidenceByPost(id);
-            if (response.success) {
-                setEvidence(response.data);
-            }
-        }
-
-        const getWorkById = async id => {
-            const response = await WorkServices.getWorkById(id);
-            if (response.success) {
-                setTitle(response.data.title);
-            }
-        }
-
-        getAllEvidenceByPost(parseInt(id));
-        getWorkById(parseInt(id));
-    }, [id]);
-
-    const confirmDeleteOperation = (data) => {
-        Swal.fire({
-            title: 'Are you sure you want to delete this content?',
-            text: "You won't be able to revert this!",
-            icon: 'warning',
-            showCancelButton: true,
-            confirmButtonColor: '#3085d6',
-            cancelButtonColor: '#d33',
-            confirmButtonText: 'Yes, delete it!'
-        }).then(async (result) => {
-            if (result.isConfirmed) {
-                await deleteEvidence(data.id);
-            }
-        })
-    }
-
-    const deleteEvidence = async id => {
-        const response = await EvidenceService.deleteEvidence(id);
-        if (response.success) {
-            const filterEvidence = evidence.filter(e => e.id !== id);
-            setEvidence(filterEvidence);
-            Swal.fire({
-                icon: 'success',
-                text: 'Content deleted!'
-            });
-        } else {
-            Swal.fire({
-                icon: 'error',
-                text: 'Ooops!! there was an error deleting the content'
-            });
-        }
-    }
-
-    const getPictureByRow = async row => {
-        const response = await EvidenceService.getEvidencePictureById(row.id);
-        if (response.status === 200) {
-            const blob = await response.blob();
-            setImage(URL.createObjectURL(blob));
-        }
-        setShown(true);
-        const button = document.getElementById("EvidenceModalBtn");
-        button.click();
-    }
+    const handlePerRowsChange = async (newPerPage, page) => {
+        getAllEvidenceByPost(parseInt(id), page, newPerPage);
+        setPerPage(newPerPage);
+    };
 
     const resetModal = () => {
         setShown(false);
@@ -121,6 +130,13 @@ const ContentManager = () => {
                     data={evidence}
                     highlightOnHover
                     pagination
+                    paginationServer
+                    paginationPerPage={perPage}
+                    paginationRowsPerPageOptions={[5, 10, 20, 30, 40, 50]}
+                    paginationTotalRows={totalRows}
+                    paginationDefaultPage={currentPage }
+                    onChangeRowsPerPage={handlePerRowsChange}
+                    onChangePage={page => (setCurrentPage(page))}
                 />
             </div>
             {(shown) ?

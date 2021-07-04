@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useMemo, useCallback  } from 'react';
 import { Link, useRouteMatch } from 'react-router-dom';
 import DataTable from 'react-data-table-component';
 import ServiceSevices from '../../../../services/ServiceSevices';
@@ -11,19 +11,57 @@ const Services = () => {
     const [shown, setShown] = useState(false);
     const [image, setImage] = useState(null);
     const [service, setService] = useState(null);
+    const [totalRows, setTotalRows] = useState(0);
+    const [perPage, setPerPage] = useState(5);
+    const [currentPage, setCurrentPage] = useState(1);
+
+    const getServices = useCallback(async (page, size = perPage) => {
+        const response = await ServiceSevices.getServicesPaginated((page - 1), size);
+        if (response.success) {
+            setServices(response.data.content);
+            setTotalRows(response.data.totalElements);
+        }
+    }, [perPage]);
+
 
     useEffect(() => {
-        const getServices = async () => {
-            const response = await ServiceSevices.getServices();
-            if (response.success) {
-                setServices(response.data);
-            }
+        getServices(currentPage);
+    }, [currentPage, getServices]);
+
+    const deleteService = useCallback(async id => {
+        const response = await ServiceSevices.deleteService(id);
+        if (response.success) {
+            const filterServices = services.filter(s => s.id !== id);
+            setServices(filterServices);
+            Swal.fire({
+                icon: 'success',
+                text: 'Service deleted!'
+            });
+        } else {
+            Swal.fire({
+                icon: 'error',
+                text: 'Ooops!! there was an error deleting the service'
+            });
         }
+    }, [services]);
 
-        getServices();
-    }, []);
+    const confirmDeleteOperation = useCallback((data) => {
+        Swal.fire({
+            title: 'Are you sure you want to delete this service?',
+            text: "You won't be able to revert this!",
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#d33',
+            confirmButtonText: 'Yes, delete it!'
+        }).then(async (result) => {
+            if (result.isConfirmed) {
+                await deleteService(data.id);
+            }
+        })
+    }, [deleteService]);
 
-    const colums = [
+    const colums = useMemo(() => [
         {
             name: 'Description',
             selector: 'description'
@@ -47,40 +85,7 @@ const Services = () => {
             </div>
 
         }
-    ];
-
-    const confirmDeleteOperation = (data) => {
-        Swal.fire({
-            title: 'Are you sure you want to delete this service?',
-            text: "You won't be able to revert this!",
-            icon: 'warning',
-            showCancelButton: true,
-            confirmButtonColor: '#3085d6',
-            cancelButtonColor: '#d33',
-            confirmButtonText: 'Yes, delete it!'
-        }).then(async (result) => {
-            if (result.isConfirmed) {
-                await deleteService(data.id);
-            }
-        })
-    }
-
-    const deleteService = async id => {
-        const response = await ServiceSevices.deleteService(id);
-        if (response.success) {
-            const filterServices = services.filter(s => s.id !== id);
-            setServices(filterServices);
-            Swal.fire({
-                icon: 'success',
-                text: 'Service deleted!'
-            });
-        } else {
-            Swal.fire({
-                icon: 'error',
-                text: 'Ooops!! there was an error deleting the service'
-            });
-        }
-    }
+    ], [confirmDeleteOperation, url]);
 
     const onRowClicked = async row => {
         const response = await ServiceSevices.getServiceThumbnail(row.id);
@@ -93,6 +98,11 @@ const Services = () => {
         const button = document.getElementById("ServiceModalBtn");
         button.click();
     }
+
+    const handlePerRowsChange = async (newPerPage, page) => {
+        getServices(page, newPerPage);
+        setPerPage(newPerPage);
+    };
 
     const resetModal = () => {
         setShown(false);
@@ -115,8 +125,14 @@ const Services = () => {
                     onRowClicked={onRowClicked}
                     highlightOnHover
                     pointerOnHover
-                    paginationPerPage={5}
                     pagination
+                    paginationServer
+                    paginationPerPage={perPage}
+                    paginationRowsPerPageOptions={[5, 10, 20, 30, 40, 50]}
+                    paginationTotalRows={totalRows}
+                    paginationDefaultPage={currentPage }
+                    onChangeRowsPerPage={handlePerRowsChange}
+                    onChangePage={page => (setCurrentPage(page))}
                 />
             </div>
             {(shown) ?
