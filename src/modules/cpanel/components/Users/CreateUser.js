@@ -1,15 +1,12 @@
-import { useState, useContext, useEffect } from "react";
+import { useState } from "react";
 import { useHistory } from "react-router";
-import { AppContext } from "../../../../core/AppProvider";
 import UserServices from "../../../../services/UserServices";
 import Swal from "sweetalert2";
 
 const CreateUser = () => {
 
-    const [state, dispatch] = useContext(AppContext);
     const history = useHistory();
 
-    const [users, setUsers] = useState([]);
     const [username, setUsername] = useState("");
     const [firstname, setFirstname] = useState("");
     const [lastname, setLastname] = useState("");
@@ -18,10 +15,6 @@ const CreateUser = () => {
     const [confirmPassword, setConfirmPassword] = useState("");
     const [showPassword, setShowPassword] = useState(false);
     const [showConfirmPassword, setConfirmShowPassword] = useState(false);
-
-    useEffect(() => {
-        setUsers(state.users);
-    }, [state]);
 
     const togglePasswordVisiblity = () => {
         setShowPassword(showPassword ? false : true);
@@ -41,15 +34,6 @@ const CreateUser = () => {
             });
             return
         }
-        
-        const exists = users.find(u => u.username === username);
-        if (exists) {
-            Swal.fire({
-                icon: 'error',
-                text: 'Username already exists!'
-            });
-            return
-        }
 
         let newUser = {
             username, 
@@ -61,26 +45,16 @@ const CreateUser = () => {
         };
         const response = await UserServices.createUser(newUser);
         if (response.success) {
-            let createdUser = { 
-                id: response.data.id,
-                username: response.data.username,
-                firstname: response.data.firstname,
-                lastname: response.data.lastname,
-                email: response.data.email,
-                status: response.data.status
-            };
-            users.push(createdUser);
-            dispatch({ type:'set_users', data:users });
             Swal.fire({
                 icon: 'success',
                 text: 'New user created!'
             });
             history.push("/cpanel/users");
         } else {
-            console.log(response);
             Swal.fire({
                 icon: 'error',
-                text: 'Ooops!! there was an error creating the user'
+                title: 'Ooops!! there was an error creating the user',
+                text: response.message
             });
             return
         }

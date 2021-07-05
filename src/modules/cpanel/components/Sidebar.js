@@ -64,7 +64,8 @@ const Sidebar = () => {
                             <strong>{ tokenUser.username }</strong> 
                     </a>
                     <ul className="dropdown-menu dropdown-menu-dark text-small shadow" aria-labelledby="dropdownUser1">
-                        <li><Link className="dropdown-item" to="#" onClick={ signOut } >Sign out</Link></li>
+                        <li><Link className="dropdown-item" to="/cpanel/users/update" >profile</Link></li>
+                        <li><Link className="dropdown-item" to="#" onClick={ signOut } >sign out</Link></li>
                     </ul>
                 </div>
             </div>

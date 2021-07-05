@@ -260,3 +260,7 @@ i.icon-bgdark.active {
 .center {
   text-align: center;
 }
+
+.is-hidden {
+  display: none;
+}

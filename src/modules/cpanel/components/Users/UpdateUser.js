@@ -1,21 +1,17 @@
-import { useState, useContext, useEffect } from "react";
+import { useState, useEffect } from "react";
 import { useHistory } from "react-router";
-import { AppContext } from "../../../../core/AppProvider";
 import UserServices from "../../../../services/UserServices";
 import Authentication from "../../../../security/Authentication";
 import Swal from "sweetalert2";
 
 const UpdateUser = () => {
 
-    const [state, dispatch] = useContext(AppContext);
     const { id } = Authentication.getProfile();
     const history = useHistory();
 
-    const [users, setUsers] = useState(null);
     const [roles, setRoles] = useState([]);
     const [isLoaded, setIsLoaded] = useState(false);
     const [username, setUsername] = useState("");
-    const [originalUsername, setOriginalUsername] = useState("");
     const [firstname, setFirstname] = useState("");
     const [lastname, setLastname] = useState("");
     const [email, setEmail] = useState("");
@@ -30,7 +26,6 @@ const UpdateUser = () => {
         const getUserById = async id => {
             const response = await UserServices.getUserById(id);
             if (response.success) {
-                setOriginalUsername(response.data.username);
                 setUsername(response.data.username);
                 setEmail(response.data.email);
                 setFirstname(response.data.firstname);
@@ -41,9 +36,8 @@ const UpdateUser = () => {
             }
         }
 
-        setUsers(state.users);
         getUserById(id);
-    }, [state, id]);
+    }, [id]);
 
     const togglePasswordVisiblity = () => {
         setShowPassword(showPassword ? false : true);
@@ -64,15 +58,6 @@ const UpdateUser = () => {
             return
         }
 
-        const exists = users.find(u => u.username === username);
-        if (exists && username !== originalUsername) {
-            Swal.fire({
-                icon: 'error',
-                text: 'Username already exists!'
-            });
-            return
-        }
-
         let updateUser = {
             id,
             username, 
@@ -86,27 +71,16 @@ const UpdateUser = () => {
         
         const response = await UserServices.updateUser(updateUser);
         if (response.success) {
-            let updatedUser = { 
-                id: response.data.id,
-                username: response.data.username,
-                firstname: response.data.firstname,
-                lastname: response.data.lastname,
-                email: response.data.email,
-                status: response.data.status
-            };
-            const index = users.findIndex(u => u.id === updatedUser.id);
-            users[index] = updatedUser;
-            dispatch({ type:'set_users', data:users });
             Swal.fire({
                 icon: 'success',
                 text: 'User updated successfully!'
             });
             history.push("/cpanel/users");
         } else {
-            console.log(response);
             Swal.fire({
                 icon: 'error',
-                text: 'Ooops!! there was an error updating the user'
+                title: 'Ooops!! there was an error creating the user',
+                text: response.message
             });
             return
         }
@@ -119,7 +93,7 @@ const UpdateUser = () => {
     return (
         <>
             <div className="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
-                <h1 className="h2">Update User</h1>
+                <h1 className="h2">My Profile</h1>
             </div>
             { isLoaded ? (
                 <>

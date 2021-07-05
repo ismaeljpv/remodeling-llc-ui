@@ -2,9 +2,6 @@ import { useEffect, useContext } from 'react';
 import { AppContext } from '../../core/AppProvider';
 import { Switch, Route, useRouteMatch } from 'react-router-dom';
 
-// Services
-import UserServices from '../../services/UserServices';
-
 // Components
 import Sidebar from './components/Sidebar';
 import Company from './components/Company';
@@ -31,15 +28,6 @@ const Cpanel = ({ company }) => {
     useEffect(() => {
         
         dispatch({ type: 'set_company', data: company });
-
-        const getUsers = async () => {
-            const response = await UserServices.getAllUsers();
-            if (response.success) {
-                dispatch({ type: 'set_users', data: response.data })
-            }
-        }
-
-        getUsers();
     }, [dispatch, company]);
 
     return (

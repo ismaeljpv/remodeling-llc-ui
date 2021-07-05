@@ -1,5 +1,4 @@
-import { useState, useEffect, useContext } from 'react';
-import { AppContext } from '../../../../core/AppProvider';
+import { useState, useEffect, useCallback, useMemo } from 'react';
 import { Link, useRouteMatch } from 'react-router-dom';
 import DataTable from 'react-data-table-component';
 import Swal from 'sweetalert2';
@@ -10,14 +9,59 @@ const Users = () => {
 
     const { id } = Authentication.getProfile();
     const { url } = useRouteMatch();
-    const [state, dispatch] = useContext(AppContext);
     const [users, setUsers] = useState([]);
+    const [totalRows, setTotalRows] = useState(0);
+    const [perPage, setPerPage] = useState(5);
+    const [currentPage, setCurrentPage] = useState(1);
+
+    const getUsers = useCallback(async (page, size = perPage) => {
+        const response = await UserServices.getUsersPaginated((page - 1), size);
+        if (response.success) {
+            setUsers(response.data.content);
+            setTotalRows(response.data.totalElements);
+        }
+    }, [perPage]);
+
 
     useEffect(() => {
-        setUsers(state.users);
-    }, [state]);
+        
+        getUsers(currentPage);
+    }, [getUsers, currentPage]);
 
-    const columns = [
+    const deleteUser = useCallback(async (id) => {
+        const response = await UserServices.deleteUser(id);
+        if (response.success) {
+            const filterUsers = users.filter(user => user.id !== id);
+            setUsers(filterUsers);
+            Swal.fire({
+                icon: 'success',
+                text: 'User deleted!'
+            });
+        } else {
+            Swal.fire({
+                icon: 'error',
+                text: 'Ooops!! there was an error deleting the user'
+            });
+        }
+    }, [users]);
+
+    const confirmDeleteOperation = useCallback((data) => {
+        Swal.fire({
+            title: 'Are you sure you want to delete this user?',
+            text: "You won't be able to revert this!",
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#d33',
+            confirmButtonText: 'Yes, delete it!'
+        }).then(async (result) => {
+            if (result.isConfirmed) {
+                await deleteUser(data.id);
+            }
+        })
+    }, [deleteUser]);
+
+    const columns = useMemo(() => [
         {
             name: 'username',
             selector: 'username'
@@ -43,40 +87,12 @@ const Users = () => {
                 (<Link to={`${url}/update`} className="btn btn-sm btn-outline-primary">update</Link>) :
                 (<button type="button" className="btn btn-sm btn-outline-danger" onClick={() => confirmDeleteOperation(row)} >delete</button>)
         }
-    ];
+    ], [confirmDeleteOperation, url, id]);
 
-    const confirmDeleteOperation = (data) => {
-        Swal.fire({
-            title: 'Are you sure you want to delete this user?',
-            text: "You won't be able to revert this!",
-            icon: 'warning',
-            showCancelButton: true,
-            confirmButtonColor: '#3085d6',
-            cancelButtonColor: '#d33',
-            confirmButtonText: 'Yes, delete it!'
-        }).then(async (result) => {
-            if (result.isConfirmed) {
-                await deleteUser(data.id);
-            }
-        })
-    }
-
-    const deleteUser = async (id) => {
-        const response = await UserServices.deleteUser(id);
-        if (response.success) {
-            const filterUsers = state.users.filter(user => user.id !== id);
-            dispatch({ type: 'set_users', data: filterUsers });
-            Swal.fire({
-                icon: 'success',
-                text: 'User deleted!'
-            });
-        } else {
-            Swal.fire({
-                icon: 'error',
-                text: 'Ooops!! there was an error deleting the user'
-            });
-        }
-    }
+    const handlePerRowsChange = async (newPerPage, page) => {
+        getUsers(page, newPerPage);
+        setPerPage(newPerPage);
+    };
 
     return (
         <>
@@ -90,6 +106,14 @@ const Users = () => {
                 <DataTable
                     columns={columns}
                     data={users}
+                    pagination
+                    paginationServer
+                    paginationPerPage={perPage}
+                    paginationRowsPerPageOptions={[5, 10, 20, 30, 40, 50]}
+                    paginationTotalRows={totalRows}
+                    paginationDefaultPage={currentPage }
+                    onChangeRowsPerPage={handlePerRowsChange}
+                    onChangePage={page => (setCurrentPage(page))}
                 />
             </div>
         </>
