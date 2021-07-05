@@ -30,7 +30,7 @@ function App() {
         <AppProvider>
           <ScrollToTop >
 
-            <Route path='/' render={() => (<Home />)} exact />
+            <Route path='/' render={() => (<Home company={company} />)} exact />
 
             <Route path='/post' component={ Post } />
 

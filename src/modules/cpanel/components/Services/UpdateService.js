@@ -54,13 +54,6 @@ const UpdateService = () => {
             let fileName = 'thumbnail.' + originalMimeType.split("/")[1];
             originalFile = await srcToFile(previewImage, fileName, originalMimeType);
         }
-    
-        if (thumbnail === null) {
-            if (thumbnail === null) {
-                let blob = await fetch(previewImage).then(r => r.blob());
-                setThumbnail(blob);
-            }
-        }
 
         if (service === "") {
             Swal.fire({

@@ -19,6 +19,11 @@ import CreateWork from './components/Works/CreateWork';
 import UpdateWork from './components/Works/UpdateWork';
 import ContentManager from './components/Works/ContentManager';
 import UploadContent from './components/Works/UploadContent';
+import Features from './components/Features';
+import CreateFeature from './components/Features/CreateFeature';
+import UpdateFeature from './components/Features/UpdateFeature';
+import CreateGoal from './components/Company/CreateGoal';
+import UpdateGoal from './components/Company/UpdateGoal';
 
 const Cpanel = ({ company }) => {
 
@@ -66,6 +71,15 @@ const Cpanel = ({ company }) => {
                             <Route path={`${url}/works/upload/:id`} exact>
                                 <UploadContent />
                             </Route>
+                            <Route path={`${url}/features`} exact>
+                                <Features />
+                            </Route>
+                            <Route path={`${url}/features/create`} >
+                                <CreateFeature />
+                            </Route>
+                            <Route path={`${url}/features/:id`} >
+                                <UpdateFeature />
+                            </Route>
                             <Route path={`${url}/services`} exact>
                                 <Services />
                             </Route>
@@ -83,6 +97,12 @@ const Cpanel = ({ company }) => {
                             </Route>
                             <Route path={`${url}/users/update`}>
                                 <UpdateUser />
+                            </Route>
+                            <Route path={`${url}/goal/create/:companyId`}>
+                                <CreateGoal />
+                            </Route>
+                            <Route path={`${url}/goal/update/:id`}>
+                                <UpdateGoal />
                             </Route>
                         </Switch>
                     </main>

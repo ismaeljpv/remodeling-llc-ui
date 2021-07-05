@@ -11,7 +11,6 @@ const getAllEvidenceByPost = async id => {
         }
     });
     const data = await res.json();
-    console.log(data);
     return (res.status === 200) ? { success: true, data: data.content} : { success: false } ;
 }
 

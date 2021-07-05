@@ -33,6 +33,12 @@ const Sidebar = () => {
                         </Link>
                     </li>
                     <li>
+                        <Link to={`${url}/features`} className="nav-link sidebar-item text-white">
+                        <i className="bi me-2 bi-card-list" width="16" height="16"/>
+                            Features
+                        </Link>
+                    </li>
+                    <li>
                         <Link to={`${url}/services`} className="nav-link sidebar-item text-white">
                         <i className="bi me-2 bi-menu-up" width="16" height="16"/>
                             Services

@@ -14,8 +14,7 @@ const UpdateCompany = () => {
     const [name, setName] = useState('');
     const [email, setEmail] = useState('');
     const [phoneNumber, setPhoneNumber] = useState('');
-    const [mision, setMision] = useState('');
-    const [vision, setVision] = useState('');
+    const [description, setDescription] = useState('');
 
     useEffect(() => {
         let companyId = parseInt(id);
@@ -24,8 +23,7 @@ const UpdateCompany = () => {
             setName(state.company.name);
             setEmail(state.company.email);
             setPhoneNumber(state.company.phoneNumber);
-            setMision(state.company.mision);
-            setVision(state.company.vision);
+            setDescription(state.company.description);
         }
     }, [state, id]);
 
@@ -37,12 +35,10 @@ const UpdateCompany = () => {
             name,
             email,
             phoneNumber,
-            mision,
-            vision
+            description,
         };
         const response = await CompanyService.updateCompany(companyData);
         if (response.success) {
-            console.log("updated");
             dispatch({ type: 'set_company', data: companyData });
             Swal.fire({
                 icon: 'success',
@@ -89,14 +85,9 @@ const UpdateCompany = () => {
                                         value={phoneNumber} onChange={(e) => setPhoneNumber(e.target.value)} />
                                 </div>
                                 <div className="col-12 p-2">
-                                    <label htmlFor="mision" className="form-label">Mision</label>
-                                    <input type="text" className="form-control" id="mision" name="mision"
-                                        value={mision} onChange={(e) => setMision(e.target.value)} />
-                                </div>
-                                <div className="col-12 p-2">
-                                    <label htmlFor="vision" className="form-label">Vision</label>
-                                    <input type="text" className="form-control" id="vision" name="vision"
-                                        value={vision} onChange={(e) => setVision(e.target.value)} />
+                                    <label htmlFor="description" className="form-label">Description</label>
+                                    <textarea className="form-control" id="description" name="description"
+                                        value={description} onChange={(e) => setDescription(e.target.value)} />
                                 </div>
                                 <div className="col-md-12 p-2 center">
                                     <button className="btn btn-outline-primary me-5" type="submit">update</button>

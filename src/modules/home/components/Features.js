@@ -15,26 +15,27 @@ const Features = () => {
                             <ul className="nav nav-tabs flex-column">
                                 <li className="nav-item">
                                     <a className="nav-link active show" data-bs-toggle="tab" href="#tab-1">
-                                        <h4>Modi sit est</h4>
-                                        <p>Quis excepturi porro totam sint earum quo nulla perspiciatis eius.</p>
+                                        <h4>Safety</h4>
+                                        <p>In our business, safety is everything, therefore all our employees follow 
+                                            the safety standards required in the different work areas.</p>
                                     </a>
                                 </li>
                                 <li className="nav-item mt-2">
                                     <a className="nav-link" data-bs-toggle="tab" href="#tab-2">
-                                        <h4>Unde praesentium sed</h4>
-                                        <p>Voluptas vel esse repudiandae quo excepturi.</p>
+                                        <h4>Licenses</h4>
+                                        <p>We got all our licenses in order to satisfy any legal requirement.</p>
                                     </a>
                                 </li>
                                 <li className="nav-item mt-2">
                                     <a className="nav-link" data-bs-toggle="tab" href="#tab-3">
-                                        <h4>Pariatur explicabo vel</h4>
-                                        <p>Velit veniam ipsa sit nihil blanditiis mollitia natus.</p>
+                                        <h4>Time Lines</h4>
+                                        <p>We ensure compliance with the delivery times promised in the planning phase.</p>
                                     </a>
                                 </li>
                                 <li className="nav-item mt-2">
                                     <a className="nav-link" data-bs-toggle="tab" href="#tab-4">
-                                        <h4>Nostrum qui quasi</h4>
-                                        <p>Ratione hic sapiente nostrum doloremque illum nulla praesentium id</p>
+                                        <h4>Quality</h4>
+                                        <p>We adjust to the budget of our clients always maintaining the quality of our construction materials</p>
                                     </a>
                                 </li>
                             </ul>
