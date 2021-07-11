@@ -41,9 +41,9 @@ const Navbar = () => {
 	return (
 		<nav id="navbar" className="navbar">
 			<ul>
-				<li><a className="nav-link scrollto active" href="#hero" onClick={redirectTo}>Home</a></li>
 				{homePage ?
 					<>
+						<li><a className="nav-link scrollto active" href="#hero" onClick={redirectTo}>Home</a></li>
 						<li><a className="nav-link scrollto" href="#about" onClick={redirectTo}>About</a></li>
 						<li><a className="nav-link scrollto" href="#services" onClick={redirectTo}>Services</a></li>
 						<li><a className="nav-link scrollto " href="#portfolio" onClick={redirectTo}>Portfolio</a></li>
@@ -51,7 +51,9 @@ const Navbar = () => {
 						<li><a className="nav-link scrollto" href="#contact" onClick={redirectTo}>Contact</a></li>
 
 					</> :
-					<></>}
+					<>
+						<li><Link className="nav-link scrollto active" to="/" >Home</Link></li>
+					</>}
 				{isAuthenticated ?
 					<>
 						<li><Link className="nav-link scrollto" to="/cpanel">Admin Panel</Link></li>
@@ -64,9 +66,9 @@ const Navbar = () => {
 					<i className="bi bi-list"></i>
 				</button>
 				<ul className="dropdown-menu" aria-labelledby="menuButton">
-					<li><a className="dropdown-item" href="#hero" onClick={redirectTo}>Home</a></li>
 					{homePage ?
 						<>
+							<li><a className="dropdown-item" href="#hero" onClick={redirectTo}>Home</a></li>
 							<li><a className="dropdown-item" href="#about" onClick={redirectTo}>About</a></li>
 							<li><a className="dropdown-item" href="#services" onClick={redirectTo}>Services</a></li>
 							<li><a className="dropdown-item" href="#portfolio" onClick={redirectTo}>Portfolio</a></li>
@@ -74,7 +76,9 @@ const Navbar = () => {
 							<li><a className="dropdown-item" href="#contact" onClick={redirectTo}>Contact</a></li>
 
 						</> :
-						<></>}
+						<>
+							<li><Link className="nav-link scrollto active" to="/" >Home</Link></li>
+						</>}
 					{isAuthenticated ?
 						<>
 							<li><Link className="dropdown-item" to="/cpanel">Admin Panel</Link></li>

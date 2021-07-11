@@ -1,13 +1,10 @@
-import { useState, useContext, useEffect } from "react";
-import { useParams, useHistory } from "react-router";
-import { AppContext } from "../../../../core/AppProvider";
-import CompanyService from "../../../../services/CompanyServices";
+import { useState, useEffect } from "react";
+import { useHistory } from "react-router";
+import CompanyServices from "../../../../services/CompanyServices";
 import Swal from 'sweetalert2';
 
 const UpdateCompany = () => {
 
-    const [state, dispatch] = useContext(AppContext);
-    const { id } = useParams();
     const history = useHistory();
 
     const [companyId, setCompanyId] = useState(null);
@@ -17,15 +14,20 @@ const UpdateCompany = () => {
     const [description, setDescription] = useState('');
 
     useEffect(() => {
-        let companyId = parseInt(id);
-        if (state.company !== null && state.company.id === companyId) {
-            setCompanyId(companyId);
-            setName(state.company.name);
-            setEmail(state.company.email);
-            setPhoneNumber(state.company.phoneNumber);
-            setDescription(state.company.description);
+
+        const getCompany = async () => {
+            const { success, data } = await CompanyServices.getCompanyInfo();
+            if (success) {
+                setCompanyId(data.id);
+                setName(data.name);
+                setEmail(data.email);
+                setPhoneNumber(data.phoneNumber);
+                setDescription(data.description);
+            }
         }
-    }, [state, id]);
+
+        getCompany();
+    }, []);
 
     const onSubmit = async (e) => {
         e.preventDefault();
@@ -37,9 +39,8 @@ const UpdateCompany = () => {
             phoneNumber,
             description,
         };
-        const response = await CompanyService.updateCompany(companyData);
+        const response = await CompanyServices.updateCompany(companyData);
         if (response.success) {
-            dispatch({ type: 'set_company', data: companyData });
             Swal.fire({
                 icon: 'success',
                 text: 'Company information updated!'

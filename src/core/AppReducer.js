@@ -5,19 +5,25 @@ export const reducer = (state, action) => {
         ...state,
         company: action.data
       };
-    
-    case "set_users":
+
+    case "set_goals":
       return {
         ...state,
-        users: action.data
+        goals: action.data
       }
-      
+
+    case "set_features":
+      return {
+        ...state,
+        features: action.data
+      }
+
     case "set_services":
-        return {
-          ...state,
-          services: action.data
-        } 
-      
+      return {
+        ...state,
+        services: action.data
+      }
+
     default:
       return state;
   }
@@ -25,7 +31,7 @@ export const reducer = (state, action) => {
 
 export const initialState = {
   company: null,
-  services: [],
-  works: [],
-  users: []
+  goals: [],
+  features: [],
+  services: []
 }

@@ -1,4 +1,3 @@
-import { useState, useEffect } from 'react';
 import { BrowserRouter as Router, Route, Redirect } from "react-router-dom";
 import { Home, Login, Cpanel, PasswordRecovery, Post } from './modules';
 import ScrollToTop from './core/ScrollToTop';
@@ -6,23 +5,8 @@ import ProtectedRoute from './core/ProtectedRoute';
 import { AppProvider } from './core/AppProvider';
 import Authentication from './security/Authentication';
 import LoginService from './services/LoginServices';
-import CompanyService from './services/CompanyServices';
 
 function App() {
-
-  const [company, setCompany] = useState(null);
-
-  useEffect(() => {
-  
-    const getCompany = async () => {
-      const { success, data } = await CompanyService.getCompanyInfo();
-      if (success) {
-        setCompany(data);
-      }
-    }
-
-    getCompany();
-  }, []);
 
   return (
     <Router>
@@ -30,9 +14,9 @@ function App() {
         <AppProvider>
           <ScrollToTop >
 
-            <Route path='/' render={() => (<Home company={company} />)} exact />
+            <Route path='/' render={() => (<Home />)} exact />
 
-            <Route path='/post' component={ Post } />
+            <Route path='/post/:id' component={ Post } exact/>
 
             <Route path='/login'
               render={({ match: { url } }) => (
@@ -53,7 +37,7 @@ function App() {
               )}
             />
 
-            <ProtectedRoute path='/cpanel' component={ Cpanel } company={ company } />
+            <ProtectedRoute path='/cpanel' component={ Cpanel } />
 
           </ScrollToTop>
         </AppProvider>

@@ -2,6 +2,7 @@ import { useState, useEffect } from "react";
 import { useHistory, useParams } from "react-router";
 import WorkServices from "../../../../services/WorkServices";
 import Authentication from "../../../../security/Authentication";
+import moment from 'moment';
 import Swal from "sweetalert2";
 
 
@@ -14,6 +15,8 @@ const UpdateWork = () => {
     const [title, setTitle] = useState("");
     const [description, setDescription] = useState("");
     const [status, setStatus] = useState("");
+    const [client, setClient] = useState("");
+    const [projectDate, setProjectDate] = useState("");
     const [thumbnail, setThumbnail] = useState(null);
     const [tags, setTags] = useState([]);
     const [tag, setTag] = useState("");
@@ -29,6 +32,9 @@ const UpdateWork = () => {
                 setDescription(response.data.description);
                 setStatus(response.data.status);
                 setTags(response.data.tags);
+                setClient(response.data.client);
+                console.log(response.data.projectDate);
+                setProjectDate(moment(response.data.projectDate).format('YYYY-MM-DD'));
             }
         }
 
@@ -85,10 +91,28 @@ const UpdateWork = () => {
             return
         }
 
+        if (client === "") {
+            Swal.fire({
+                icon: 'error',
+                text: 'Client must be set'
+            });
+            return
+        }
+
+        if (projectDate === "") {
+            Swal.fire({
+                icon: 'error',
+                text: 'Project date must be set'
+            });
+            return
+        }
+
         let formData = new FormData();
         formData.append('id', parseInt(id));
         formData.append('title', title);
         formData.append('description', description);
+        formData.append('client', client);
+        formData.append('projectDate', projectDate);
         formData.append('thumbnail', (thumbnail !== null) ? thumbnail : originalFile);
         formData.append('status', status);
         formData.append('userId', profile.id);
@@ -158,6 +182,16 @@ const UpdateWork = () => {
                                     <label htmlFor="description" className="form-label">Description</label>
                                     <textarea className="form-control" id="description" name="description"
                                         value={description} onChange={(e) => setDescription(e.target.value)} />
+                                </div>
+                                <div className="col-6 p-2">
+                                    <label htmlFor="client" className="form-label">Client</label>
+                                    <input type="text" className="form-control" id="client" name="client"
+                                        value={client} onChange={(e) => setClient(e.target.value)} />
+                                </div>
+                                <div className="col-6 p-2">
+                                    <label htmlFor="projectDate" className="form-label">Project Date</label>
+                                    <input type="date" className="form-control" id="projectDate" name="projectDate"
+                                        value={projectDate} onChange={(e) => setProjectDate(e.target.value)} />
                                 </div>
                                 <div className="col-12 p-2">
                                     <label htmlFor="tag" className="form-label">Tags</label>

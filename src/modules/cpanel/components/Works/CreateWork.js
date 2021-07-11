@@ -12,6 +12,8 @@ const CreateWork = () => {
 
     const [title, setTitle] = useState("");
     const [description, setDescription] = useState("");
+    const [client, setClient] = useState("");
+    const [projectDate, setProjectDate] = useState("");
     const [thumbnail, setThumbnail] = useState(null);
     const [tags, setTags] = useState([]);
     const [tag, setTag] = useState("");
@@ -52,9 +54,27 @@ const CreateWork = () => {
             return
         }
 
+        if (client === "") {
+            Swal.fire({
+                icon: 'error',
+                text: 'Client must be set'
+            });
+            return
+        }
+
+        if (projectDate === "") {
+            Swal.fire({
+                icon: 'error',
+                text: 'Project date must be set'
+            });
+            return
+        }
+
         let formData = new FormData();
         formData.append('title', title);
         formData.append('description', description);
+        formData.append('client', client);
+        formData.append('projectDate', projectDate);
         formData.append('thumbnail', thumbnail);
         formData.append('status', 'ACTIVE');
         formData.append('userId', id);
@@ -113,9 +133,19 @@ const CreateWork = () => {
                 <div className="card p-3">
                     <form className="row g-2" onSubmit={onSubmit}>
                         <div className="col-12 p-2">
-                            <label htmlFor="service" className="form-label">Title</label>
+                            <label htmlFor="title" className="form-label">Title</label>
                             <input type="text" className="form-control" id="title" name="title"
                                 value={title} onChange={(e) => setTitle(e.target.value)} />
+                        </div>
+                        <div className="col-6 p-2">
+                            <label htmlFor="client" className="form-label">Client</label>
+                            <input type="text" className="form-control" id="client" name="client"
+                                value={client} onChange={(e) => setClient(e.target.value)} />
+                        </div>
+                        <div className="col-6 p-2">
+                            <label htmlFor="projectDate" className="form-label">Project Date</label>
+                            <input type="date" className="form-control" id="projectDate" name="projectDate"
+                                value={projectDate} onChange={(e) => setProjectDate(e.target.value)} />
                         </div>
                         <div className="col-12 p-2">
                             <label htmlFor="description" className="form-label">Description</label>
@@ -137,7 +167,7 @@ const CreateWork = () => {
                                 value={tag} onChange={(e) => setTag(e.target.value)} onKeyUp={addTag} />
                         </div>
                         <div className="col-12 p-2">
-                            <label htmlFor="image" className="form-label">Thumbnail</label>
+                            <label htmlFor="thumbnail" className="form-label">Thumbnail</label>
                             {(previewImage) ?
                                 <div className="center mb-3">
                                     <img src={previewImage} alt="preview" style={{ width: '20rem' }} />

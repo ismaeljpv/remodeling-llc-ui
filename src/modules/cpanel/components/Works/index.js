@@ -64,12 +64,16 @@ const Works = () => {
 
     const colums = useMemo(() => [
         {
-            name: 'Date',
-            cell: row => <Moment format="DD/MM/YYYY">{row.createdAt}</Moment>
+            name: 'Project Date',
+            cell: row => <Moment format="DD/MM/YYYY">{row.projectDate}</Moment>
         },
         {
             name: 'Title',
             selector: 'title'
+        },
+        {
+            name: 'Client',
+            selector: 'client'
         },
         {
             name: 'Description',

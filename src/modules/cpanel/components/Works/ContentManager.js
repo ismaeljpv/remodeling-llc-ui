@@ -2,7 +2,7 @@ import { useState, useEffect, useMemo, useCallback } from 'react';
 import { useParams } from 'react-router';
 import { Link } from 'react-router-dom';
 import DataTable from 'react-data-table-component';
-import EvidenceService from '../../../../services/EvidenceService';
+import EvidenceServices from '../../../../services/EvidenceServices';
 import WorkServices from '../../../../services/WorkServices';
 import Swal from 'sweetalert2';
 
@@ -15,11 +15,11 @@ const ContentManager = () => {
     const [image, setImage] = useState(null);
     const [shown, setShown] = useState(false);
     const [totalRows, setTotalRows] = useState(0);
-    const [perPage, setPerPage] = useState(3);
+    const [perPage, setPerPage] = useState(5);
     const [currentPage, setCurrentPage] = useState(1);
 
     const getAllEvidenceByPost = useCallback(async (id, page, size = perPage) => {
-        const response = await EvidenceService.getAllEvidenceByPostPaginated(id, (page - 1), size);
+        const response = await EvidenceServices.getAllEvidenceByPostPaginated(id, (page - 1), size);
         if (response.success) {
             setEvidence(response.data.content);
             setTotalRows(response.data.totalElements);
@@ -40,7 +40,7 @@ const ContentManager = () => {
     }, [getAllEvidenceByPost, getWorkById, id, currentPage]);
 
     const deleteEvidence = useCallback(async id => {
-        const response = await EvidenceService.deleteEvidence(id);
+        const response = await EvidenceServices.deleteEvidence(id);
         if (response.success) {
             const filterEvidence = evidence.filter(e => e.id !== id);
             setEvidence(filterEvidence);
@@ -73,7 +73,7 @@ const ContentManager = () => {
     }, [deleteEvidence]);
 
     const getPictureByRow = useCallback(async row => {
-        const response = await EvidenceService.getEvidencePictureById(row.id);
+        const response = await EvidenceServices.getEvidencePictureById(row.id);
         if (response.status === 200) {
             const blob = await response.blob();
             setImage(URL.createObjectURL(blob));

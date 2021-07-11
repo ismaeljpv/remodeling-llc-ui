@@ -1,21 +1,44 @@
-import React from 'react';
+import { useState, useEffect } from 'react';
+import { useParams } from 'react-router';
+import { Link } from 'react-router-dom';
+import moment from 'moment';
+import Layout from './Layout';
+import DynamicImage from './components/DynamicImage';
 // import Swiper bundle with all modules installed
 import { Swiper, SwiperSlide } from "swiper/react";
 import 'swiper/swiper-bundle.css';
-// import Swiper core and required modules
 import SwiperCore, { Navigation } from 'swiper/core';
-
-import { Link } from 'react-router-dom';
-
-import Layout from './Layout';
-import PortafolioDetail1 from '../../assets/img/portfolio/portfolio-details-1.jpg';
-import PortafolioDetail2 from '../../assets/img/portfolio/portfolio-details-2.jpg';
-import PortafolioDetail3 from '../../assets/img/portfolio/portfolio-details-3.jpg';
+//Services
+import WorkServices from '../../services/WorkServices';
+import EvidenceServices from '../../services/EvidenceServices';
 
 // install Swiper modules
 SwiperCore.use([Navigation]);
 
 const Post = () => {
+
+    const { id } = useParams();
+    const [work, setWork] = useState(null);
+    const [evidences, setEvidences] = useState([]);
+
+    useEffect(() => {
+        const getWorkById = async id => {
+            const response = await WorkServices.getWorkById(id);
+            if (response.success) {
+                setWork(response.data);
+            }
+        }
+
+        const getAllEvidenceByPost = async id => {
+            const response = await EvidenceServices.getAllEvidenceByPost(id);
+            if (response.success) {
+                setEvidences(response.data);
+            }
+        }
+
+        getWorkById(parseInt(id));
+        getAllEvidenceByPost(parseInt(id));
+    }, [id]);
 
     return (
         <>
@@ -35,44 +58,58 @@ const Post = () => {
                         </div>
                     </section>
                     <section id="portfolio-details" className="portfolio-details">
-                        <div className="container">
+                        {(work) ? (
+                            <>
+                                <div className="container">
 
-                            <div className="row gy-4">
+                                    <div className="row gy-4">
 
-                                <div className="col-lg-8">
-                                    <Swiper navigation={true} >
-                                        <SwiperSlide>
-                                            <img  src={PortafolioDetail1} alt="Detail 1" />
-                                        </SwiperSlide>
-                                        <SwiperSlide>
-                                            <img  src={PortafolioDetail2} alt="Detail 3" />
-                                        </SwiperSlide>
-                                        <SwiperSlide>
-                                          <img  src={PortafolioDetail3} alt="Detail 3" />
-                                        </SwiperSlide>
-                                    </Swiper>
-                                </div>
+                                        <div className="col-lg-8">
+                                            {(evidences.length > 0) ?
+                                                <>
+                                                    <Swiper navigation={true} >
+                                                        {evidences.map(evidence => (
+                                                            <SwiperSlide key={evidence.id} >
+                                                                {(evidence.type === 'PICTURE') ?
+                                                                  ( <DynamicImage id={evidence.id} className="img-fluid" type="POSTS" /> )
+                                                                : ( <iframe width="600" height="500" 
+                                                                     src={`https://www.youtube.com/embed/${evidence.videoId}`} 
+                                                                     title={`video-${evidence.id}`} frameborder="0" 
+                                                                     allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
+                                                                     allowfullscreen></iframe> )}
+                                                            </SwiperSlide>
+                                                        ))}
+                                                    </Swiper>
+                                                </>
+                                                : <></>}
+                                        </div>
 
-                                <div className="col-lg-4">
-                                    <div className="portfolio-info">
-                                        <h3>Project information</h3>
-                                        <ul>
-                                            <li><strong>Category</strong>: Web design</li>
-                                            <li><strong>Client</strong>: ASU Company</li>
-                                            <li><strong>Project date</strong>: 01 March, 2020</li>
-                                        </ul>
+                                        <div className="col-lg-4">
+                                            <div className="portfolio-info">
+                                                <h3>Project information</h3>
+                                                <ul>
+                                                    <li><strong>Category</strong>:
+                                                        {work.tags.map((t, i) =>
+                                                            <span key={i} className="badge rounded-pill bg-primary me-1" >{t}</span>
+                                                        )}
+                                                    </li>
+                                                    <li><strong>Client</strong>: {work.client}</li>
+                                                    <li><strong>Project date</strong>: {moment(work.projectDate).format('DD/MM/YYYY')}</li>
+                                                </ul>
+                                            </div>
+                                            <div className="portfolio-info">
+                                                <h3>Description</h3>
+                                                <p>
+                                                    {work.description}
+                                                </p>
+                                            </div>
+                                        </div>
+
                                     </div>
-                                    <div className="portfolio-description">
-                                        <h2>This is an example of portfolio detail</h2>
-                                        <p>
-                                            Autem ipsum nam porro corporis rerum. Quis eos dolorem eos itaque inventore commodi labore quia quia. Exercitationem repudiandae officiis neque suscipit non officia eaque itaque enim. Voluptatem officia accusantium nesciunt est omnis tempora consectetur dignissimos. Sequi nulla at esse enim cum deserunt eius.
-                                        </p>
-                                    </div>
+
                                 </div>
-
-                            </div>
-
-                        </div>
+                            </>
+                        ) : (<></>)}
                     </section>
 
                 </div>

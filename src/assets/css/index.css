@@ -264,3 +264,15 @@ i.icon-bgdark.active {
 .is-hidden {
   display: none;
 }
+
+.card-img-top {
+  max-height: 200px;
+  min-height: 150px;
+  object-fit: cover;
+}
+
+.portfolio-img {
+  max-height: 200px;
+  min-height: 150px;
+  object-fit: cover;
+}

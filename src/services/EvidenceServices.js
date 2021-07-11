@@ -60,7 +60,7 @@ const deleteEvidence = async id => {
     return (res.status === 200) ? { success: true } : { success: false } ;
 }
 
-const EvidenceService = {
+const EvidenceServices = {
     getAllEvidenceByPost,
     getAllEvidenceByPostPaginated,
     getEvidencePictureById,
@@ -68,4 +68,4 @@ const EvidenceService = {
     deleteEvidence
 }
 
-export default EvidenceService;
+export default EvidenceServices;

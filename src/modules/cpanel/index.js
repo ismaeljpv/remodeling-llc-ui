@@ -1,5 +1,3 @@
-import { useEffect, useContext } from 'react';
-import { AppContext } from '../../core/AppProvider';
 import { Switch, Route, useRouteMatch } from 'react-router-dom';
 
 // Components
@@ -25,15 +23,9 @@ import UpdateFeature from './components/Features/UpdateFeature';
 import CreateGoal from './components/Company/CreateGoal';
 import UpdateGoal from './components/Company/UpdateGoal';
 
-const Cpanel = ({ company }) => {
+const Cpanel = () => {
 
     const { url } = useRouteMatch();
-    const [, dispatch] = useContext(AppContext);
-
-    useEffect(() => {
-        
-        dispatch({ type: 'set_company', data: company });
-    }, [dispatch, company]);
 
     return (
         <>
@@ -53,7 +45,7 @@ const Cpanel = ({ company }) => {
                             <Route path={`${url}/company`} exact>
                                 <Company />
                             </Route>
-                            <Route path={`${url}/company/:id`}>
+                            <Route path={`${url}/company/update`}>
                                 <UpdateCompany />
                             </Route>
                             <Route path={`${url}/works`} exact>

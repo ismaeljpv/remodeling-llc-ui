@@ -28,9 +28,9 @@ const updateCompany = async (body) => {
     return (res.status === 200) ? { success: true, data } : { success: false, message: data.message } ;
 }
 
-const CompanyService = {
+const CompanyServices = {
     getCompanyInfo,
     updateCompany
 };
 
-export default CompanyService;
+export default CompanyServices;

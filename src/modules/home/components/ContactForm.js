@@ -44,7 +44,7 @@ const ContactForm = () => {
 
                     <div className="row mt-5 justify-content-center" data-aos="fade-up">
                         <div className="col-lg-10">
-                            <form  method="post" className="php-email-form">
+                            <form  method="post" className="email-form">
                                 <div className="row">
                                     <div className="col-md-6 form-group">
                                         <input type="text" name="name" className="form-control" id="name" placeholder="Your Name" required />

@@ -1,6 +1,7 @@
 import { useState, useEffect, useContext, useCallback, useMemo } from 'react';
 import { AppContext } from '../../../../core/AppProvider';
 import { Link, useRouteMatch } from 'react-router-dom';
+import CompanyServices from '../../../../services/CompanyServices';
 import GoalSevices from '../../../../services/GoalServices';
 import DataTable from 'react-data-table-component';
 import Swal from 'sweetalert2';
@@ -60,8 +61,14 @@ const Company = () => {
 
     useEffect(() => {
 
-        setCompany(state.company);
+        const getCompany = async () => {
+            const { success, data } = await CompanyServices.getCompanyInfo();
+            if (success) {
+              setCompany(data);
+            }
+        }
         getAllGoals(currentPage);
+        getCompany();
     }, [state, getAllGoals, currentPage]);
 
     const colums = useMemo(() => [
@@ -105,7 +112,7 @@ const Company = () => {
                             <li className="list-group-item"><strong>Phone Number:</strong> {company.phoneNumber}</li>
                         </ul>
                         <div className="card-body text-center">
-                            <Link to={`${url}/${company.id}`} className="btn btn-primary">update</Link>
+                            <Link to={`${url}/update`} className="btn btn-primary">update</Link>
                         </div>
                     </div>
                     <div className="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 border-bottom">

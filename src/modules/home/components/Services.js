@@ -1,5 +1,17 @@
+import { useContext, useEffect, useState } from 'react';
+import { AppContext } from '../../../core/AppProvider';
+import DynamicImage from './DynamicImage';
 
 const Services = () => {
+
+    const [state,] = useContext(AppContext);
+    const [services, setServices] = useState([]);
+
+    useEffect(() => {
+
+        setServices(state.services);
+    }, [state]);
+
     return (
         <>
             <section id="services" className="services section-bg">
@@ -7,48 +19,51 @@ const Services = () => {
 
                     <div className="section-title" data-aos="fade-up">
                         <h1>Services</h1>
-                        <p>Magnam dolores commodi suscipit. Necessitatibus eius consequatur ex aliquid fuga eum quidem. Sit sint consectetur velit. Quisquam quos quisquam cupiditate. Et nemo qui impedit suscipit alias ea. Quia fugiat sit in iste officiis commodi quidem hic quas.</p>
+                        <p>You want a change but don't have an idea? Don't worry, we also have a qualified staff to help you design and thus achieve the change you are waiting for.</p>
                     </div>
 
                     <div className="row">
-                        <div className="col-md-6 col-lg-3 d-flex align-items-stretch mb-5 mb-lg-0" data-aos="fade-up">
-                            <div className="icon-box icon-box-pink">
-                                <div className="icon"><i className="bx bxl-dribbble"></i></div>
-                                <h4 className="title">Lorem Ipsum</h4>
-                                <p className="description">Voluptatum deleniti atque corrupti quos dolores et quas molestias excepturi sint occaecati cupiditate</p>
-                            </div>
-                        </div>
-
-                        <div className="col-md-6 col-lg-3 d-flex align-items-stretch mb-5 mb-lg-0" data-aos="fade-up" data-aos-delay="100">
-                            <div className="icon-box icon-box-cyan">
-                                <div className="icon"><i className="bx bx-file"></i></div>
-                                <h4 className="title">Sed ut perspiciatis</h4>
-                                <p className="description">Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla</p>
-                            </div>
-                        </div>
-
-                        <div className="col-md-6 col-lg-3 d-flex align-items-stretch mb-5 mb-lg-0" data-aos="fade-up" data-aos-delay="200">
-                            <div className="icon-box icon-box-green">
-                                <div className="icon"><i className="bx bx-tachometer"></i></div>
-                                <h4 className="title">Magni Dolores</h4>
-                                <p className="description">Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim</p>
-                            </div>
-                        </div>
-
-                        <div className="col-md-6 col-lg-3 d-flex align-items-stretch mb-5 mb-lg-0" data-aos="fade-up" data-aos-delay="300">
-                            <div className="icon-box icon-box-blue">
-                                <div className="icon"><i className="bx bx-world"></i></div>
-                                <h4 className="title">Nemo Enim</h4>
-                                <p className="description">At vero eos et accusamus et iusto odio dignissimos ducimus qui blanditiis praesentium voluptatum</p>
-                            </div>
-                        </div>
-
+                        {(services.length > 0) ?
+                            <>
+                                {services.map(service => (
+                                    <div key={service.id} className="col-md-6 col-lg-3 d-flex align-items-stretch mb-3 mb-lg-0" data-aos="fade-up">
+                                        <div className="card text-center">
+                                            <DynamicImage id={service.id} className="card-img-top" type="SERVICES" />
+                                            <div className="card-body">
+                                                <h5 className="card-title">{service.service}</h5>
+                                                <p className="card-text">{service.description}</p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                ))}
+                            </>
+                            : (<></>)}
                     </div>
-
                 </div>
             </section>
         </>
     );
 };
+
+/* 
+
+ <div key={service.id} className="col-md-6 col-lg-3 d-flex align-items-stretch mb-5 mb-lg-0" data-aos="fade-up">
+                                        <div className="icon-box icon-box-pink">
+                                            <div className="icon mb-2"><DynamicImage id={service.id} alt={service.service} className="img-fluid" type="SERVICES" /></div>
+                                            <h4 className="title">{service.service}</h4>
+                                            <p className="description">{service.description}</p>
+                                        </div>
+                                    </div>
+
+<div className="card" style="width: 18rem;">
+  <img className="card-img-top" src="..." alt="Card image cap">
+  <div className="card-body">
+    <h5 className="card-title">Card title</h5>
+    <p className="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+    <a href="#" className="btn btn-primary">Go somewhere</a>
+  </div>
+</div>
+
+*/
 
 export default Services;

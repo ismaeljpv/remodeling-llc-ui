@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { useHistory, useParams } from 'react-router';
-import EvidenceService from '../../../../services/EvidenceService';
+import EvidenceServices from '../../../../services/EvidenceServices';
 import Swal from 'sweetalert2';
 
 const UploadContent = () => {
@@ -54,7 +54,7 @@ const UploadContent = () => {
             formData.append('videoUrl', videoUrl);
         }
 
-        const response = await EvidenceService.uploadContent(formData);
+        const response = await EvidenceServices.uploadContent(formData);
         if (response.success) {
             Swal.fire({
                 icon: 'success',
