@@ -22,7 +22,6 @@ const Portfolio = () => {
 			}
 		}
 		getWorkPortafolio(totalShown);
-		console.log("loaded");
 	}, [totalShown]);
 
 	return (
@@ -32,15 +31,15 @@ const Portfolio = () => {
 
 					<div className="section-title" data-aos="fade-up">
 						<h2>Portfolio</h2>
-						<p>Magnam dolores commodi suscipit. Necessitatibus eius consequatur ex aliquid fuga eum quidem. Sit sint consectetur velit. Quisquam quos quisquam cupiditate. Et nemo qui impedit suscipit alias ea. Quia fugiat sit in iste officiis commodi quidem hic quas.</p>
+						<p>Check out some of our best works, this could be your house our bussines if you choose us. </p>
 					</div>
 
-					<div className="row" data-aos="fade-up">
+					<div className="row" >
 
 						{(works.length > 0) ? (
 							<>
 								{works.map(work => (
-									<div key={work.id} className="col-lg-4 col-md-6 portfolio-item">
+									<div key={work.id} className="col-lg-4 col-md-6 portfolio-item" data-aos="fade-up">
 										<div className="portfolio-wrap">
 											<DynamicImage id={work.id} className="portfolio-img" type="WORKS" />
 											<div className="portfolio-info">

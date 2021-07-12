@@ -141,7 +141,7 @@ const Works = () => {
                     paginationPerPage={perPage}
                     paginationRowsPerPageOptions={[5, 10, 20, 30, 40, 50]}
                     paginationTotalRows={totalRows}
-                    paginationDefaultPage={currentPage }
+                    paginationDefaultPage={currentPage}
                     onChangeRowsPerPage={handlePerRowsChange}
                     onChangePage={page => (setCurrentPage(page))}
                 />

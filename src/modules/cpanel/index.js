@@ -22,6 +22,9 @@ import CreateFeature from './components/Features/CreateFeature';
 import UpdateFeature from './components/Features/UpdateFeature';
 import CreateGoal from './components/Company/CreateGoal';
 import UpdateGoal from './components/Company/UpdateGoal';
+import Team from './components/Team';
+import CreateMember from './components/Team/CreateMember';
+import UpdateMember from './components/Team/UpdateMember';
 
 const Cpanel = () => {
 
@@ -95,6 +98,15 @@ const Cpanel = () => {
                             </Route>
                             <Route path={`${url}/goal/update/:id`}>
                                 <UpdateGoal />
+                            </Route>
+                            <Route path={`${url}/team`} exact>
+                                <Team />
+                            </Route>
+                            <Route path={`${url}/team/create`}>
+                                <CreateMember />
+                            </Route>
+                            <Route path={`${url}/team/:id`} exact>
+                                <UpdateMember />
                             </Route>
                         </Switch>
                     </main>

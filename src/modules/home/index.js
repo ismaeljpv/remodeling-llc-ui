@@ -13,6 +13,7 @@ import CompanyServices from '../../services/CompanyServices';
 import GoalSevices from '../../services/GoalServices';
 import FeatureSevices from '../../services/FeatureServices';
 import ServiceSevices from '../../services/ServiceSevices';
+import TeamServices from '../../services/TeamServices';
 
 const Home = () => {
 
@@ -48,10 +49,18 @@ const Home = () => {
             }
         }
 
+        const getTeam = async () => {
+            const { success, data } = await TeamServices.getTeam();
+            if (success) {
+                dispatch({ type: 'set_team', data });
+            }
+        }
+
         getCompany();
         getGoals();
         getFeatures();
         getServices();
+        getTeam();
     }, [dispatch]);
 
     return (

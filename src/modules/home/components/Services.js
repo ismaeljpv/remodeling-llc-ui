@@ -1,16 +1,10 @@
-import { useContext, useEffect, useState } from 'react';
+import { useContext } from 'react';
 import { AppContext } from '../../../core/AppProvider';
 import DynamicImage from './DynamicImage';
 
 const Services = () => {
 
     const [state,] = useContext(AppContext);
-    const [services, setServices] = useState([]);
-
-    useEffect(() => {
-
-        setServices(state.services);
-    }, [state]);
 
     return (
         <>
@@ -18,14 +12,14 @@ const Services = () => {
                 <div className="container">
 
                     <div className="section-title" data-aos="fade-up">
-                        <h1>Services</h1>
-                        <p>You want a change but don't have an idea? Don't worry, we also have a qualified staff to help you design and thus achieve the change you are waiting for.</p>
+                        <h2>Services</h2>
+                        <p>We offer the full spectrum of constructions services to create or renew any structure, following the standards of excellence to do our job in the most professional and effective way.</p>
                     </div>
 
                     <div className="row">
-                        {(services.length > 0) ?
+                        {(state.services.length > 0) ?
                             <>
-                                {services.map(service => (
+                                {state.services.map(service => (
                                     <div key={service.id} className="col-md-6 col-lg-3 d-flex align-items-stretch mb-3 mb-lg-0" data-aos="fade-up">
                                         <div className="card text-center">
                                             <DynamicImage id={service.id} className="card-img-top" type="SERVICES" />

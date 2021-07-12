@@ -51,6 +51,12 @@ const Sidebar = () => {
                         </Link>
                     </li>
                     <li>
+                        <Link to={`${url}/team`} className="nav-link sidebar-item text-white">
+                        <i className="bi me-2 bi-people-fill"  width="16" height="16" />
+                            Team
+                        </Link>
+                    </li>
+                    <li>
                         <Link to={`${url}/users`} className="nav-link sidebar-item text-white">
                         <i className="bi me-2 bi-person-badge" width="16" height="16"/>
                             Users

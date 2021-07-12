@@ -6,7 +6,6 @@ import FeatureSevices from '../../../services/FeatureServices';
 const Features = () => {
 
     const [state,] = useContext(AppContext);
-    const [features, setFeatures] = useState([]);
     const [image, setImage] = useState(null);
 
     const setFeatureImage = useCallback(async id => {
@@ -19,7 +18,6 @@ const Features = () => {
 
     useEffect(() => {
 
-        setFeatures(state.features);
         if (state.features.length > 0) {
             setFeatureImage(state.features[0].id);
         }
@@ -33,9 +31,9 @@ const Features = () => {
                     <div className="row">
                         <div className="col-lg-4 mb-5 mb-lg-0" data-aos="fade-right">
                             <ul className="nav nav-tabs flex-column">
-                                {(features.length > 0) ? (
+                                {(state.features.length > 0) ? (
                                     <>
-                                        {features.map(feature => (
+                                        {state.features.map(feature => (
                                             <li className="nav-item" key={feature.id}>
                                                 <Link className="nav-link active show"  to="#" 
                                                       onClick={e => {e.preventDefault(); setFeatureImage(feature.id); }}>

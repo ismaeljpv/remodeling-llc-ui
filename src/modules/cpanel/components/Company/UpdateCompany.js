@@ -12,6 +12,7 @@ const UpdateCompany = () => {
     const [email, setEmail] = useState('');
     const [phoneNumber, setPhoneNumber] = useState('');
     const [description, setDescription] = useState('');
+    const [location, setLocation] = useState('');
 
     useEffect(() => {
 
@@ -23,6 +24,7 @@ const UpdateCompany = () => {
                 setEmail(data.email);
                 setPhoneNumber(data.phoneNumber);
                 setDescription(data.description);
+                setLocation(data.location);
             }
         }
 
@@ -32,12 +34,53 @@ const UpdateCompany = () => {
     const onSubmit = async (e) => {
         e.preventDefault();
 
+        if (name === '') {
+            Swal.fire({
+                icon: 'error',
+                text: 'Company name must be set'
+            });
+            return
+        }
+
+        if (email === '') {
+            Swal.fire({
+                icon: 'error',
+                text: 'Email must be set'
+            });
+            return
+        }
+
+        if (phoneNumber === '') {
+            Swal.fire({
+                icon: 'error',
+                text: 'Phone number must be set'
+            });
+            return
+        }
+
+        if (location === '') {
+            Swal.fire({
+                icon: 'error',
+                text: 'Location must be set'
+            });
+            return
+        }
+
+        if (description === '') {
+            Swal.fire({
+                icon: 'error',
+                text: 'Description must be set'
+            });
+            return
+        }
+
         const companyData = {
             id: companyId,
             name,
             email,
             phoneNumber,
             description,
+            location
         };
         const response = await CompanyServices.updateCompany(companyData);
         if (response.success) {
@@ -84,6 +127,11 @@ const UpdateCompany = () => {
                                     <label htmlFor="phoneNumber" className="form-label">Phone Number</label>
                                     <input type="text" className="form-control" id="phoneNumber" name="phoneNumber"
                                         value={phoneNumber} onChange={(e) => setPhoneNumber(e.target.value)} />
+                                </div>
+                                <div className="col-12 p-2">
+                                    <label htmlFor="location" className="form-label">Location</label>
+                                    <textarea className="form-control" id="location" name="location"
+                                        value={location} onChange={(e) => setLocation(e.target.value)} />
                                 </div>
                                 <div className="col-12 p-2">
                                     <label htmlFor="description" className="form-label">Description</label>

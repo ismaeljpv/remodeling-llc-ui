@@ -108,6 +108,7 @@ const Company = () => {
                             <p className="card-text"><strong>Description:</strong> {company.description}</p>
                         </div>
                         <ul className="list-group list-group-flush">
+                            <li className="list-group-item"><strong>Location:</strong> {company.location}</li>
                             <li className="list-group-item"><strong>Email:</strong> {company.email}</li>
                             <li className="list-group-item"><strong>Phone Number:</strong> {company.phoneNumber}</li>
                         </ul>

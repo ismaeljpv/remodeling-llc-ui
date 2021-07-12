@@ -24,6 +24,12 @@ export const reducer = (state, action) => {
         services: action.data
       }
 
+    case "set_team":
+      return {
+        ...state,
+        team: action.data
+      }
+
     default:
       return state;
   }
@@ -33,5 +39,6 @@ export const initialState = {
   company: null,
   goals: [],
   features: [],
-  services: []
+  services: [],
+  team: []
 }
