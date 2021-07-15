@@ -25,22 +25,26 @@ const Company = () => {
         }
     }, [perPage]);
 
-    const deleteGoal = useCallback(async id => {
+    const deleteGoal = useCallback(async (id, total = totalRows, page = currentPage) => {
         const response = await GoalSevices.deleteGoal(id);
         if (response.success) {
-            const filterGoals = goals.filter(w => w.id !== id);
-            setGoals(filterGoals);
             Swal.fire({
                 icon: 'success',
                 text: 'Goal deleted!'
             });
+            const filterGoals = goals.filter(w => w.id !== id);
+            if (filterGoals.length === 0 && page > 1) {
+                setCurrentPage(page - 1);
+            }
+            setGoals(filterGoals);
+            setTotalRows(total - 1);
         } else {
             Swal.fire({
                 icon: 'error',
                 text: 'Ooops!! there was an error deleting the company goal'
             });
         }
-    }, [goals]);
+    }, [goals, totalRows, currentPage]);
 
     const confirmDeleteOperation = useCallback((data) => {
         Swal.fire({

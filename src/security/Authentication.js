@@ -24,7 +24,7 @@ const Authentication = {
         return (this.getToken()) ? decode(this.getToken()) : undefined;
     },
     hasAdminRole() {
-        const token = this.getToken();
+        const token = this.getProfile();
         if (token === null) return false;
 
         if (token.aud instanceof Array) {

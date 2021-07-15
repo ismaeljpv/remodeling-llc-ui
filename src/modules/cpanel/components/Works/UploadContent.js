@@ -14,8 +14,10 @@ const UploadContent = () => {
 
     const uploadPicture = (e) => {
         const imageFile = e.target.files[0];
-        setPicture(imageFile);
-        setPreviewImage(URL.createObjectURL(imageFile));
+        if (imageFile !== undefined) {
+            setPicture(imageFile);
+            setPreviewImage(URL.createObjectURL(imageFile));
+        }
     }
 
     const onSubmit = async (e) => {

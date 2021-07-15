@@ -20,8 +20,8 @@ const Services = () => {
                         {(state.services.length > 0) ?
                             <>
                                 {state.services.map(service => (
-                                    <div key={service.id} className="col-md-6 col-lg-3 d-flex align-items-stretch mb-3 mb-lg-0" data-aos="fade-up">
-                                        <div className="card text-center">
+                                    <div key={service.id} className="col-md-6 col-lg-3 d-flex align-items-stretch" data-aos="fade-up">
+                                        <div className="card card-service text-center mb-3">
                                             <DynamicImage id={service.id} className="card-img-top" type="SERVICES" />
                                             <div className="card-body">
                                                 <h5 className="card-title">{service.service}</h5>

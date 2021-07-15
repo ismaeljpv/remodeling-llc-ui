@@ -39,7 +39,7 @@ const Portfolio = () => {
 						{(works.length > 0) ? (
 							<>
 								{works.map(work => (
-									<div key={work.id} className="col-lg-4 col-md-6 portfolio-item" data-aos="fade-up">
+									<div key={work.id} className="col-lg-4 col-md-6 portfolio-item mb-4" data-aos="fade-up">
 										<div className="portfolio-wrap">
 											<DynamicImage id={work.id} className="portfolio-img" type="WORKS" />
 											<div className="portfolio-info">

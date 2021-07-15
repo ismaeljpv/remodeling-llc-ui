@@ -67,16 +67,16 @@ const Post = () => {
                                         <div className="col-lg-8">
                                             {(evidences.length > 0) ?
                                                 <>
-                                                    <Swiper navigation={true} >
+                                                    <Swiper navigation={true}>
                                                         {evidences.map(evidence => (
                                                             <SwiperSlide key={evidence.id} >
                                                                 {(evidence.type === 'PICTURE') ?
-                                                                  ( <DynamicImage id={evidence.id} className="img-fluid" type="POSTS" /> )
-                                                                : ( <iframe width="600" height="500" 
-                                                                     src={`https://www.youtube.com/embed/${evidence.videoId}`} 
-                                                                     title={`video-${evidence.id}`} frameborder="0" 
-                                                                     allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
-                                                                     allowfullscreen></iframe> )}
+                                                                    (<DynamicImage id={evidence.id} className="img-fluid" type="POSTS" />)
+                                                                    : (<iframe width="600" height="500"
+                                                                        src={`https://www.youtube.com/embed/${evidence.videoId}`}
+                                                                        title={`video-${evidence.id}`} frameborder="0"
+                                                                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                                                                        allowfullscreen></iframe>)}
                                                             </SwiperSlide>
                                                         ))}
                                                     </Swiper>
@@ -88,13 +88,16 @@ const Post = () => {
                                             <div className="portfolio-info">
                                                 <h3>Project information</h3>
                                                 <ul>
-                                                    <li><strong>Category</strong>:
-                                                        {work.tags.map((t, i) =>
-                                                            <span key={i} className="badge rounded-pill bg-primary me-1" >{t}</span>
-                                                        )}
+                                                    <li>
+                                                        <strong>Categories</strong>:
+                                                        <div>
+                                                            {work.tags.map((t, i) =>
+                                                                <span key={i} className="badge rounded-pill bg-primary me-1" >{t}</span>
+                                                            )}
+                                                        </div>
                                                     </li>
                                                     <li><strong>Client</strong>: {work.client}</li>
-                                                    <li><strong>Project date</strong>: {moment(work.projectDate).format('DD/MM/YYYY')}</li>
+                                                    <li><strong>Project Date</strong>: {moment(work.projectDate).format('DD/MM/YYYY')}</li>
                                                 </ul>
                                             </div>
                                             <div className="portfolio-info">

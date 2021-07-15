@@ -37,8 +37,8 @@ const Login = ({ signIn }) => {
         if (response.success) {
             setUsername('');
             setPassword('');
-            history.push('/cpanel');
             setShouldHide(true);
+            history.push('/cpanel');
         } else {
             Swal.fire({
                 icon: 'error',

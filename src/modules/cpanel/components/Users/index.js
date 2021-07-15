@@ -24,26 +24,31 @@ const Users = () => {
 
 
     useEffect(() => {
-        
-        getUsers(currentPage);
+        if (Authentication.hasAdminRole()) {
+            getUsers(currentPage);
+        }
     }, [getUsers, currentPage]);
 
-    const deleteUser = useCallback(async (id) => {
+    const deleteUser = useCallback(async (id, total = totalRows, page = currentPage) => {
         const response = await UserServices.deleteUser(id);
         if (response.success) {
-            const filterUsers = users.filter(user => user.id !== id);
-            setUsers(filterUsers);
             Swal.fire({
                 icon: 'success',
                 text: 'User deleted!'
             });
+            const filterUsers = users.filter(user => user.id !== id);
+            if (filterUsers.length === 0 && page > 1) {
+                setCurrentPage(page - 1);
+            }
+            setUsers(filterUsers);
+            setTotalRows(total - 1);
         } else {
             Swal.fire({
                 icon: 'error',
                 text: 'Ooops!! there was an error deleting the user'
             });
         }
-    }, [users]);
+    }, [users, totalRows, currentPage]);
 
     const confirmDeleteOperation = useCallback((data) => {
         Swal.fire({

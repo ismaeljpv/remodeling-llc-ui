@@ -66,8 +66,10 @@ const CreateMember = () => {
 
     const uploadPhoto = (e) => {
         const imageFile = e.target.files[0];
-        setPhoto(imageFile);
-        setPreviewImage(URL.createObjectURL(imageFile));
+        if (imageFile !== undefined) {
+            setPhoto(imageFile);
+            setPreviewImage(URL.createObjectURL(imageFile));
+        }
     }
 
     return (

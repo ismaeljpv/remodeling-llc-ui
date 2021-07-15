@@ -4,8 +4,8 @@ import Authentication from "../security/Authentication";
 const api = Enviroment.getEnviroment();
 
 const ROLE = {
-    id: 1,
-    role: 'ADMIN',
+    id: 2,
+    role: 'MAINTAINER',
     status: 'ACTIVE'
 }
 

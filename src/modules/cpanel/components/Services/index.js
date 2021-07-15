@@ -28,22 +28,26 @@ const Services = () => {
         getServices(currentPage);
     }, [currentPage, getServices]);
 
-    const deleteService = useCallback(async id => {
+    const deleteService = useCallback(async (id, total = totalRows, page = currentPage) => {
         const response = await ServiceSevices.deleteService(id);
         if (response.success) {
-            const filterServices = services.filter(s => s.id !== id);
-            setServices(filterServices);
             Swal.fire({
                 icon: 'success',
                 text: 'Service deleted!'
             });
+            const filterServices = services.filter(s => s.id !== id);
+            if (filterServices.length === 0 && page > 1) {
+                setCurrentPage(page - 1);
+            }
+            setServices(filterServices);
+            setTotalRows(total - 1);
         } else {
             Swal.fire({
                 icon: 'error',
                 text: 'Ooops!! there was an error deleting the service'
             });
         }
-    }, [services]);
+    }, [services, totalRows, currentPage]);
 
     const confirmDeleteOperation = useCallback((data) => {
         Swal.fire({

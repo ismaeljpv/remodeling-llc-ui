@@ -66,8 +66,10 @@ const CreateFeature = () => {
 
     const uploadImage = (e) => {
         const imageFile = e.target.files[0];
-        setImage(imageFile);
-        setPreviewImage(URL.createObjectURL(imageFile));
+        if (imageFile !== undefined) {
+            setImage(imageFile);
+            setPreviewImage(URL.createObjectURL(imageFile));
+        }
     }
 
     return (

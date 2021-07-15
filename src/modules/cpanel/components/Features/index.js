@@ -23,22 +23,26 @@ const Features = () => {
         }
     }, [perPage]);
 
-    const deleteFeature = useCallback(async id => {
+    const deleteFeature = useCallback(async (id, total = totalRows, page = currentPage) => {
         const response = await FeatureSevices.deleteFeature(id);
         if (response.success) {
-            const filterFeatures = features.filter(w => w.id !== id);
-            setFeatures(filterFeatures);
             Swal.fire({
                 icon: 'success',
                 text: 'Feature deleted!'
             });
+            const filterFeatures = features.filter(w => w.id !== id);
+            if (filterFeatures.length === 0 && page > 1) {
+                setCurrentPage(page - 1);
+            }
+            setFeatures(filterFeatures);
+            setTotalRows(total - 1);
         } else {
             Swal.fire({
                 icon: 'error',
                 text: 'Ooops!! there was an error deleting the feature'
             });
         }
-    }, [features]);
+    }, [features, totalRows, currentPage]);
 
     const confirmDeleteOperation = useCallback((data) => {
         Swal.fire({

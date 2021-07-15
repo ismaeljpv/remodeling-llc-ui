@@ -25,22 +25,26 @@ const Works = () => {
         }
     }, [perPage]);
 
-    const deleteWork = useCallback(async id => {
+    const deleteWork = useCallback(async (id, total = totalRows, page = currentPage) => {
         const response = await WorkServices.deleteWork(id);
         if (response.success) {
-            const filterWorks = works.filter(w => w.id !== id);
-            setWorks(filterWorks);
             Swal.fire({
                 icon: 'success',
                 text: 'Work post deleted!'
             });
+            const filterWorks = works.filter(w => w.id !== id);
+            if (filterWorks.length === 0 && page > 1) {
+                setCurrentPage(page - 1);
+            }
+            setWorks(filterWorks);
+            setTotalRows(total - 1);
         } else {
             Swal.fire({
                 icon: 'error',
                 text: 'Ooops!! there was an error deleting the work post'
             });
         }
-    }, [works]);
+    }, [works, totalRows, currentPage]);
 
     const confirmDeleteOperation = useCallback((data) => {
         Swal.fire({
@@ -74,10 +78,6 @@ const Works = () => {
         {
             name: 'Client',
             selector: 'client'
-        },
-        {
-            name: 'Description',
-            selector: 'description'
         },
         {
             name: 'Status',

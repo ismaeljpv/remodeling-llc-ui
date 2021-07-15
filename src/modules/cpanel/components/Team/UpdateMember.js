@@ -93,8 +93,10 @@ const UpdateMember = () => {
 
     const uploadPhoto = (e) => {
         const imageFile = e.target.files[0];
-        setPhoto(imageFile);
-        setPreviewImage(URL.createObjectURL(imageFile));
+        if (imageFile !== undefined) {
+            setPhoto(imageFile);
+            setPreviewImage(URL.createObjectURL(imageFile));
+        }
     }
 
     const srcToFile = async (src, fileName, mimeType) => {

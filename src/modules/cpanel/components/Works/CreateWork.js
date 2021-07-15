@@ -119,9 +119,13 @@ const CreateWork = () => {
     }
 
     const uploadThumbnail = (e) => {
+        console.log(e.target);
         const imageFile = e.target.files[0];
-        setThumbnail(imageFile);
-        setPreviewImage(URL.createObjectURL(imageFile));
+        console.log(imageFile);
+        if (imageFile !== undefined) {
+            setThumbnail(imageFile);
+            setPreviewImage(URL.createObjectURL(imageFile));
+        }
     }
 
     return (

@@ -265,9 +265,15 @@ i.icon-bgdark.active {
   display: none;
 }
 
+.card-service {
+  max-width: 450px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
 .card-img-top {
   max-height: 200px;
-  min-height: 150px;
+  min-height: 200px;
   object-fit: cover;
 }
 
@@ -275,4 +281,5 @@ i.icon-bgdark.active {
   max-height: 200px;
   min-height: 150px;
   object-fit: cover;
+  min-width: 400px;
 }

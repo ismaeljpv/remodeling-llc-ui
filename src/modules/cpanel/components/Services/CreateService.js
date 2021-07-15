@@ -14,8 +14,10 @@ const CreateService = () => {
 
     const uploadThumbnail = (e) => {
         const imageFile = e.target.files[0];
-        setThumbnail(imageFile);
-        setPreviewImage(URL.createObjectURL(imageFile));
+        if (imageFile !== undefined) {
+            setThumbnail(imageFile);
+            setPreviewImage(URL.createObjectURL(imageFile));
+        }
     }
 
     const onSubmit = async (e) => {
