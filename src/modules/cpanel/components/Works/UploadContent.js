@@ -47,6 +47,14 @@ const UploadContent = () => {
             return
         }
 
+        if (type === 'VIDEO' && !videoUrl.startsWith('https://')) {
+            Swal.fire({
+                icon: 'error',
+                text: 'Link to video is not Secured (HTTPS)'
+            });
+            return
+        }
+
         let formData = new FormData();
         formData.append('type', type);
         formData.append('postId', parseInt(id));

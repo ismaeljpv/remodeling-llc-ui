@@ -7,6 +7,7 @@ import Swal from 'sweetalert2';
 
 const Works = () => {
 
+    const [sort, ] = useState("ASC");
     const { url } = useRouteMatch();
     const [works, setWorks] = useState([]);
     const [image, setImage] = useState(null);
@@ -17,13 +18,13 @@ const Works = () => {
     const [perPage, setPerPage] = useState(5);
     const [currentPage, setCurrentPage] = useState(1);
 
-    const getWorks = useCallback(async (page, size = perPage) => {
-        const response = await WorkServices.getWorksPaginated((page - 1), size);
+    const getWorks = useCallback(async (page, size = perPage, order = sort) => {
+        const response = await WorkServices.getWorksPaginated((page - 1), size, order);
         if (response.success) {
             setWorks(response.data.content);
             setTotalRows(response.data.totalElements);
         }
-    }, [perPage]);
+    }, [perPage, sort]);
 
     const deleteWork = useCallback(async (id, total = totalRows, page = currentPage) => {
         const response = await WorkServices.deleteWork(id);
@@ -123,7 +124,7 @@ const Works = () => {
 
     return (
         <>
-            <div className="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
+            <div className="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 border-bottom">
                 <h1 className="h2">Work Portfolio</h1>
                 <div className="btn-toolbar mb-2 mb-md-0">
                     <Link to={`${url}/create`} className="btn btn-sm btn-outline-success me-5">create work</Link>

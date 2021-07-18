@@ -8,6 +8,7 @@ import WorkServices from '../../../services/WorkServices';
 
 const Portfolio = () => {
 
+	const ORDER = "DESC";
 	const [works, setWorks] = useState([]);
 	const [totalShown, setTotalShown] = useState(6);
 	const [totalWorks, setTotalWorks] = useState(0);
@@ -15,7 +16,7 @@ const Portfolio = () => {
 	useEffect(() => {
 
 		const getWorkPortafolio = async total => {
-			const response = await WorkServices.getWorksPaginated(0, total);
+			const response = await WorkServices.getWorksPaginated(0, total, ORDER);
 			if (response.success) {
 				setWorks(response.data.content);
 				setTotalWorks(response.data.totalElements);

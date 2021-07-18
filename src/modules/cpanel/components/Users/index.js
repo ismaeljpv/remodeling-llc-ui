@@ -24,9 +24,8 @@ const Users = () => {
 
 
     useEffect(() => {
-        if (Authentication.hasAdminRole()) {
-            getUsers(currentPage);
-        }
+
+        getUsers(currentPage);
     }, [getUsers, currentPage]);
 
     const deleteUser = useCallback(async (id, total = totalRows, page = currentPage) => {
@@ -116,7 +115,7 @@ const Users = () => {
                     paginationPerPage={perPage}
                     paginationRowsPerPageOptions={[5, 10, 20, 30, 40, 50]}
                     paginationTotalRows={totalRows}
-                    paginationDefaultPage={currentPage }
+                    paginationDefaultPage={currentPage}
                     onChangeRowsPerPage={handlePerRowsChange}
                     onChangePage={page => (setCurrentPage(page))}
                 />

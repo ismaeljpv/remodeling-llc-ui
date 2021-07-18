@@ -25,6 +25,7 @@ import UpdateGoal from './components/Company/UpdateGoal';
 import Team from './components/Team';
 import CreateMember from './components/Team/CreateMember';
 import UpdateMember from './components/Team/UpdateMember';
+import Authentication from '../../security/Authentication';
 
 const Cpanel = () => {
 
@@ -84,15 +85,6 @@ const Cpanel = () => {
                             <Route path={`${url}/services/:id`} >
                                 <UpdateService />
                             </Route>
-                            <Route path={`${url}/users`} exact>
-                                <Users />
-                            </Route>
-                            <Route path={`${url}/users/create`}>
-                                <CreateUser />
-                            </Route>
-                            <Route path={`${url}/users/update`}>
-                                <UpdateUser />
-                            </Route>
                             <Route path={`${url}/goal/create/:companyId`}>
                                 <CreateGoal />
                             </Route>
@@ -108,6 +100,19 @@ const Cpanel = () => {
                             <Route path={`${url}/team/:id`} exact>
                                 <UpdateMember />
                             </Route>
+                            {(Authentication.hasAdminRole()) ? (
+                                <>
+                                    <Route path={`${url}/users`} exact>
+                                        <Users />
+                                    </Route>
+                                    <Route path={`${url}/users/create`}>
+                                        <CreateUser />
+                                    </Route>
+                                    <Route path={`${url}/users/update`}>
+                                        <UpdateUser />
+                                    </Route>
+                                </>
+                            ) : (<></>)}
                         </Switch>
                     </main>
                 </div>

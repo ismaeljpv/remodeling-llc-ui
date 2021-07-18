@@ -15,8 +15,8 @@ const getWorks = async () => {
     return (res.status === 200) ? { success: true, data } : { success: false, message: data.message } ;
 }
 
-const getWorksPaginated = async (page, size) => {
-    const res = await fetch(`${api}/post?page=${page}&size=${size}`, {
+const getWorksPaginated = async (page, size, order) => {
+    const res = await fetch(`${api}/post?page=${page}&size=${size}&sort=${order}`, {
         method: 'GET',
         headers: {
             'Content-type': 'application/json',

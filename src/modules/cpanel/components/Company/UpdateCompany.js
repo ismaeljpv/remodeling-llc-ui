@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import { useHistory } from "react-router";
 import CompanyServices from "../../../../services/CompanyServices";
+import Validators from "../../../../validators";
 import Swal from 'sweetalert2';
 
 const UpdateCompany = () => {
@@ -50,10 +51,26 @@ const UpdateCompany = () => {
             return
         }
 
+        if (!Validators.isValidEmail(email)) {
+            Swal.fire({
+                icon: 'error',
+                text: 'Invalid Email'
+            });
+            return
+        }
+
         if (phoneNumber === '') {
             Swal.fire({
                 icon: 'error',
                 text: 'Phone number must be set'
+            });
+            return
+        }
+
+        if (!Validators.isValidPhoneNumber(phoneNumber)) {
+            Swal.fire({
+                icon: 'error',
+                text: 'Invalid Phone Number'
             });
             return
         }

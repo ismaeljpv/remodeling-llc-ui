@@ -1,6 +1,7 @@
 import { useContext, useState } from 'react';
 import { AppContext } from '../../../core/AppProvider';
 import ContactServices from '../../../services/ContactServices';
+import Validators from '../../../validators';
 import Swal from 'sweetalert2';
 
 const ContactForm = () => {
@@ -28,6 +29,15 @@ const ContactForm = () => {
             });
             return
         }
+
+        if (!Validators.isValidEmail(email)) {
+            Swal.fire({
+                icon: 'error',
+                text: 'Invalid Email'
+            });
+            return
+        }
+
         if (subject === '') {
             Swal.fire({
                 icon: 'error',
@@ -42,6 +52,15 @@ const ContactForm = () => {
             });
             return
         }
+
+        if (phoneNumber !== "" && !Validators.isValidPhoneNumber(phoneNumber)) {
+            Swal.fire({
+                icon: 'error',
+                text: 'Invalid Phone Number'
+            });
+            return
+        }
+
 
         let contactEmail = {
             name, 

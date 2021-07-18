@@ -2,6 +2,7 @@ import { useState, useEffect } from "react";
 import { useHistory } from "react-router";
 import UserServices from "../../../../services/UserServices";
 import Authentication from "../../../../security/Authentication";
+import Validators from "../../../../validators";
 import Swal from "sweetalert2";
 
 const UpdateUser = () => {
@@ -50,10 +51,51 @@ const UpdateUser = () => {
     const onSubmit = async (e) => {
         e.preventDefault();
         
+        const validatePassword = await Validators.validatePassword(password); 
+        if (!validatePassword.isValid) {
+            Swal.fire({
+                icon: 'error',
+                text: validatePassword.msg
+            });
+            return
+        }
+
         if (password !== confirmPassword) {
             Swal.fire({
                 icon: 'error',
                 text: 'Password must match'
+            });
+            return
+        }
+
+        if (!Validators.isValidLength(firstname, 3)) {
+            Swal.fire({
+                icon: 'error',
+                text: 'Firstname must contain at least 3 characters.'
+            });
+            return
+        }
+
+        if (!Validators.isValidLength(firstname, 3)) {
+            Swal.fire({
+                icon: 'error',
+                text: 'Lastname must contain at least 3 characters.'
+            });
+            return
+        }
+
+        if (!Validators.isValidLength(username, 3)) {
+            Swal.fire({
+                icon: 'error',
+                text: 'Username must contain at least 3 characters.'
+            });
+            return
+        }
+        
+        if (!Validators.isValidEmail(email)) {
+            Swal.fire({
+                icon: 'error',
+                text: 'Invalid Email'
             });
             return
         }
