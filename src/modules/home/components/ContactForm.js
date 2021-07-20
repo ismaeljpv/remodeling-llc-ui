@@ -63,8 +63,8 @@ const ContactForm = () => {
 
 
         let contactEmail = {
-            name, 
-            from: email, 
+            name,
+            from: email,
             subject,
             message
         };
@@ -88,6 +88,11 @@ const ContactForm = () => {
         }
     }
 
+    const redirectToWhatsapp = (phoneNumber) => {
+        let phone = phoneNumber.replace(/[+-]/g,'');
+        window.open(`https://web.whatsapp.com/send?phone=${phone}`);
+    }
+
     return (
         <>
             <section id="contact" className="contact section-bg">
@@ -105,19 +110,20 @@ const ContactForm = () => {
                                 <div className="address">
                                     <i className="bi bi-geo-alt"></i>
                                     <h4>Location:</h4>
-                                    <p>{(state.company) ? state.company.location: ''}</p>
+                                    <p>{(state.company) ? state.company.location : ''}</p>
                                 </div>
 
                                 <div className="email mt-4">
                                     <i className="bi bi-envelope"></i>
                                     <h4>Email:</h4>
-                                    <p>{(state.company) ? state.company.email: ''}</p>
+                                    <p>{(state.company) ? state.company.email : ''}</p>
                                 </div>
 
                                 <div className="phone mt-4">
                                     <i className="bi bi-phone"></i>
-                                    <h4>Call:</h4>
-                                    <p>{(state.company) ? state.company.phoneNumber: ''}</p>
+                                    <div className="green-btn">
+                                        <button type="button" onClick={() => redirectToWhatsapp(state.company.phoneNumber)} >Whatsapp Us</button>
+                                    </div>
                                 </div>
 
                             </div>
@@ -125,39 +131,39 @@ const ContactForm = () => {
                         </div>
 
                         <div className="col-lg-5 d-flex align-items-stretch">
-                            <iframe title="googlemaps-llc" className="map-iframe" 
-                                    src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d24176.343400424845!2d-74.43168982316844!3d40.76108061660116!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x89c3a64c7ad8e723%3A0x505fb91ef2dfeaad!2sMadison%2C%20Nueva%20Jersey%2007940%2C%20EE.%20UU.!5e0!3m2!1ses-419!2sbg!4v1626029627038!5m2!1ses-419!2sbg" 
-                                    frameBorder="0" allowFullScreen></iframe>
+                            <iframe title="googlemaps-llc" className="map-iframe"
+                                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d24176.343400424845!2d-74.43168982316844!3d40.76108061660116!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x89c3a64c7ad8e723%3A0x505fb91ef2dfeaad!2sMadison%2C%20Nueva%20Jersey%2007940%2C%20EE.%20UU.!5e0!3m2!1ses-419!2sbg!4v1626029627038!5m2!1ses-419!2sbg"
+                                frameBorder="0" allowFullScreen></iframe>
                         </div>
 
                     </div>
 
                     <div className="row mt-5 justify-content-center" data-aos="fade-up">
                         <div className="col-lg-10">
-                            <form  method="post" className="email-form" onSubmit={onSubmit}>
+                            <form method="post" className="email-form" onSubmit={onSubmit}>
                                 <div className="row">
                                     <div className="col-md-6 form-group">
-                                        <input type="text" name="name" className="form-control" id="name" placeholder="Your Name" required 
-                                               value={name} onChange={(e) => setName(e.target.value)} />
+                                        <input type="text" name="name" className="form-control" id="name" placeholder="Your Name" required
+                                            value={name} onChange={(e) => setName(e.target.value)} />
                                     </div>
                                     <div className="col-md-6 form-group mt-3 mt-md-0">
-                                        <input type="email" className="form-control" name="email" id="email" placeholder="Your Email" required 
-                                               value={email} onChange={(e) => setEmail(e.target.value)}/>
+                                        <input type="email" className="form-control" name="email" id="email" placeholder="Your Email" required
+                                            value={email} onChange={(e) => setEmail(e.target.value)} />
                                     </div>
                                 </div>
                                 <div className="row">
                                     <div className="col-md-6 form-group">
-                                    <input type="text" className="form-control" name="subject" id="subject" placeholder="Subject" required 
-                                           value={subject} onChange={(e) => setSubject(e.target.value)}/>
+                                        <input type="text" className="form-control" name="subject" id="subject" placeholder="Subject" required
+                                            value={subject} onChange={(e) => setSubject(e.target.value)} />
                                     </div>
                                     <div className="col-md-6 form-group mt-3 mt-md-0">
                                         <input type="text" className="form-control" name="phoneNumber" id="phoneNumber" placeholder="Your Phone Number (Optional)"
-                                               value={phoneNumber} onChange={(e) => setPhoneNumber(e.target.value)} />
+                                            value={phoneNumber} onChange={(e) => setPhoneNumber(e.target.value)} />
                                     </div>
                                 </div>
                                 <div className="form-group mt-3">
                                     <textarea className="form-control" name="message" rows="5" placeholder="Message" required
-                                              value={message} onChange={(e) => setMessage(e.target.value)} ></textarea>
+                                        value={message} onChange={(e) => setMessage(e.target.value)} ></textarea>
                                 </div>
                                 <div className="my-3">
                                     <div className="loading">Loading</div>

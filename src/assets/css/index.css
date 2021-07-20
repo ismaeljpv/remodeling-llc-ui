@@ -283,3 +283,17 @@ i.icon-bgdark.active {
   object-fit: cover;
   min-width: 400px;
 }
+
+.green-btn button[type="button"] {
+  background: #1bac91;
+  border: 0;
+  padding: 10px 10px;
+  color: #fff;
+  transition: 0.4s;
+  border-radius: 4px;
+  margin-left: 1rem;
+}
+
+.green-btn button[type="button"]:hover {
+  background: #22d8b6;
+}
