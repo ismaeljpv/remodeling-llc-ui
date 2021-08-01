@@ -132,7 +132,7 @@ const ContactForm = () => {
 
                         <div className="col-lg-5 d-flex align-items-stretch">
                             <iframe title="googlemaps-llc" className="map-iframe"
-                                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d24176.343400424845!2d-74.43168982316844!3d40.76108061660116!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x89c3a64c7ad8e723%3A0x505fb91ef2dfeaad!2sMadison%2C%20Nueva%20Jersey%2007940%2C%20EE.%20UU.!5e0!3m2!1ses-419!2sbg!4v1626029627038!5m2!1ses-419!2sbg"
+                                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2917.9240352712445!2d-89.48538098507878!3d43.00093410238092!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x8807b1f285b776a7%3A0x78b6312a8ae5728f!2s6311%20Quarry%20Vista%20Dr%2C%20Fitchburg%2C%20WI%2053719%2C%20EE.%20UU.!5e0!3m2!1ses!2sve!4v1627850509239!5m2!1ses!2sve"
                                 frameBorder="0" allowFullScreen></iframe>
                         </div>
 
