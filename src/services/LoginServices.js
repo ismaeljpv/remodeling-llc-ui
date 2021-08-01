@@ -5,7 +5,7 @@ const sendedTokenKey = 'SendedToken-llc';
 const api = Enviroment.getEnviroment();
 
 const signIn = async (body) => {
-  const res = await fetch(api + '/login', {
+  const res = await fetch(`${api}/login`, {
     method: 'POST',
     headers: {
       'Content-type': 'application/json'
@@ -16,11 +16,12 @@ const signIn = async (body) => {
     const token = res.headers.get("Authorization");
     Authentication.logIn(token);
   }
+  return (res.status === 200) ? { success: true } : { success: false, message: res.message };
 };
 
 const sendPasswordToken = async (username) => {
   sessionStorage.removeItem(sendedTokenKey);
-  const res = await fetch(api + `/user/password/recovery/${username}`, {
+  const res = await fetch(`${api}/user/password/recovery/${username}`, {
     method: 'GET',
     headers: {
       'Content-type': 'application/json'
@@ -36,7 +37,7 @@ const sendPasswordToken = async (username) => {
 const passwordChange = async (body) => {
   body.username = sessionStorage.getItem(sendedTokenKey);
   let success = false;
-  const res = await fetch(api + '/user/password/change', {
+  const res = await fetch(`${api}/user/password/change`, {
     method: 'PUT',
     headers: {
       'Content-type': 'application/json'

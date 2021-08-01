@@ -12,6 +12,7 @@ const PasswordRecovery = ({ sendPasswordToken, passwordChange }) => {
     const [isTokenSended, setIsTokenSended] = useState(false);
     const [showPassword, setShowPassword] = useState(false);
     const [showConfirmPassword, setConfirmShowPassword] = useState(false);
+    const [shouldHide, setShouldHide] = useState(true);
 
     const togglePasswordVisiblity = () => {
         setShowPassword(showPassword ? false : true);
@@ -30,22 +31,22 @@ const PasswordRecovery = ({ sendPasswordToken, passwordChange }) => {
             });
             return
         }
-        const data = await sendPasswordToken(username);
-        const msg = data.message;
-        if (data.success) {
+        setShouldHide(false);
+        const response = await sendPasswordToken(username);
+        if (response.success) {
             Swal.fire({
                 icon: 'success',
                 title: 'Token Sended!',
-                text: msg
+                text: response.message
             });
         } else {
             Swal.fire({
                 icon: 'error',
-                title: 'Oops...',
-                text: msg
+                title: 'Oops...!! There was an error sending the token',
             })
         }
-        setIsTokenSended(data.success);
+        setIsTokenSended(response.success);
+        setShouldHide(true);
     }
 
     const changePassword = async (e) => {
@@ -78,20 +79,25 @@ const PasswordRecovery = ({ sendPasswordToken, passwordChange }) => {
             });
             return
         }
-        const data = await passwordChange({ password, token });
-        if (data.success) {
+        setShouldHide(false);
+        const response = await passwordChange({ password, token });
+        console.log(response);
+        if (response.success) {
             Swal.fire({
                 icon: 'success',
                 title: 'Password changed successfully!'
             });
             setIsTokenSended(false);
             history.push('/login');
+            setShouldHide(true);
         } else {
             Swal.fire({
                 icon: 'error',
-                title: 'Oops...',
-                text: data.message
+                title: 'Oops...!! there was an error',
+                text: response.data.message
             })
+            setShouldHide(true);
+            return
         }
     }
 
@@ -108,20 +114,27 @@ const PasswordRecovery = ({ sendPasswordToken, passwordChange }) => {
                             <input type={showPassword ? "text" : "password"} placeholder="New Password" name="password"
                                 value={password} onChange={(e) => setPassword(e.target.value)}
                             />
-                            <i className="i-login icon-eye-open icon-1x" onClick={togglePasswordVisiblity} />
+                            <i className="i-login bi-eye-fill" onClick={togglePasswordVisiblity} />
                         </div>
                         <div className="form-group-login">
                             <input type={showConfirmPassword ? "text" : "password"} placeholder="Confirm Password" name="confirmPassword"
                                 value={confirmPassword} onChange={(e) => setConfirmPassword(e.target.value)}
                             />
-                            <i className="i-login icon-eye-open icon-1x" onClick={toggleConfirmPasswordVisiblity} />
+                            <i className="i-login bi-eye-fill" onClick={toggleConfirmPasswordVisiblity} />
                         </div>
                         <div className="form-group-login">
                             <input type="text" placeholder="Insert Your Token " name="token"
                                 value={token} onChange={(e) => setToken(e.target.value)}
                             />
                         </div>
-                        <Link to="#" className="link" onClick={() => {  setIsTokenSended(false) }} >Resend token</Link>
+                        <div className="row">
+                            <div className="col-log-6 col-md-6 col-sm-6">
+                                <Link to="/login" className="link center" >Back to login</Link>
+                            </div>
+                            <div className="col-log-6 col-md-6 col-sm-6 ">
+                                <Link to="#" className="link center" onClick={() => { setIsTokenSended(false) }} >Resend token</Link>
+                            </div>
+                        </div>
                     </>
                     :
                     <div className="form-group-login">
@@ -130,7 +143,16 @@ const PasswordRecovery = ({ sendPasswordToken, passwordChange }) => {
                         />
                     </div>
                 }
-                <input type="submit" className="log-btn" value={isTokenSended ? "Change Password" : "Send Token"} />
+                <div className={(!shouldHide) ? 'is-hidden' : ''}>
+                    <input type="submit" className="log-btn" value={isTokenSended ? "Change Password" : "Send Token"} />
+                </div>
+                <div className={(shouldHide) ? 'is-hidden' : ''}>
+                    <div className="d-flex justify-content-center mt-5">
+                        <div className="spinner-border" role="status">
+                            <span className="visually-hidden">Loading...</span>
+                        </div>
+                    </div>
+                </div>
             </form>
         </div>
     );

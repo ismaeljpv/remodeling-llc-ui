@@ -99,8 +99,19 @@ i.icon-bgdark.active {
   position: relative;
   margin-bottom: 10px;
 }
-.form-group-login input[type="text"],
-input[type="password"] {
+
+.form-group-login > input[type="text"] {
+  width: 100%;
+  border: none;
+  padding: 15px 10px;
+  background: #fff;
+  color: #666;
+  border-radius: 4px;
+  -moz-border-radius: 4px;
+  -webkit-border-radius: 4px;
+}
+
+.form-group-login > input[type="password"] {
   width: 100%;
   border: none;
   padding: 15px 10px;
@@ -237,11 +248,52 @@ input[type="password"] {
 
 .i-login {
   position: absolute;
-  top: 20%;
+  top: 30%;
   right: 5%;
 }
 
 .i-login:hover {
   color: #00a777;
   cursor: pointer;
+}
+
+.center {
+  text-align: center;
+}
+
+.is-hidden {
+  display: none;
+}
+
+.card-service {
+  max-width: 450px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.card-img-top {
+  max-height: 200px;
+  min-height: 200px;
+  object-fit: cover;
+}
+
+.portfolio-img {
+  max-height: 200px;
+  min-height: 150px;
+  object-fit: cover;
+  min-width: 400px;
+}
+
+.green-btn button[type="button"] {
+  background: #1bac91;
+  border: 0;
+  padding: 10px 10px;
+  color: #fff;
+  transition: 0.4s;
+  border-radius: 4px;
+  margin-left: 1rem;
+}
+
+.green-btn button[type="button"]:hover {
+  background: #22d8b6;
 }

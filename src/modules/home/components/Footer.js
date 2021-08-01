@@ -1,23 +1,24 @@
 
 const Footer = () => {
     return (
-        <footer>
-            <div className="container">
-                <div className="row">
-                    <div className="span6 offset3">
-                        <ul className="social-networks">
-                            <li><a href="/#"><i className="icon-circled icon-bgdark icon-instagram icon-2x"></i></a></li>
-                            <li><a href="/#"><i className="icon-circled icon-bgdark icon-twitter icon-2x"></i></a></li>
-                            <li><a href="/#"><i className="icon-circled icon-bgdark icon-dribbble icon-2x"></i></a></li>
-                            <li><a href="/#"><i className="icon-circled icon-bgdark icon-pinterest icon-2x"></i></a></li>
-                        </ul>
-                        <p className="copyright">
-                            &copy; Remodeling LLC. All rights reserved.
-                        </p>
+        <>
+            <footer id="footer">
+                <div className="footer-top">
+                    <div className="container">
+                        <div className="copyright">
+                            &copy; Copyright <strong><span>R-24x7</span></strong>. All Rights Reserved
+                        </div>
+                        <div className="social-links mt-3 text-center">
+                            <a href="/#" className="twitter"><i className="bx bxl-twitter"></i></a>
+                            <a href="/#" className="facebook"><i className="bx bxl-facebook"></i></a>
+                            <a href="/#" className="instagram"><i className="bx bxl-instagram"></i></a>
+                            <a href="/#" className="google-plus"><i className="bx bxl-skype"></i></a>
+                            <a href="/#" className="linkedin"><i className="bx bxl-linkedin"></i></a>
+                        </div>
                     </div>
                 </div>
-            </div>
-        </footer>
+            </footer>
+        </>
     );
 };
 

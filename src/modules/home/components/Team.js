@@ -1,77 +1,47 @@
-import TeamImages from '../../../assets/img/team';
-import Icons from '../../../assets/img/icons';
+import { useContext } from 'react';
+import { AppContext } from '../../../core/AppProvider';
+import DynamicImage from './DynamicImage';
 
 const Team = () => {
-    return (
-        <section id="about" className="section">
-		<div className="container">
-			<h4>Who We Are</h4>
-			<div className="row">
-				<div className="span4 offset1">
-					<div>
-						<h2>We live with <strong>creativity</strong></h2>
-						<p>
-							Li Europan lingues es membres del sam familie. Lor separat existentie es un myth. Por scientie, musica, sport etc, litot Europa usa li sam vocabular. Li lingues differe solmen in li grammatica, li pronunciation e li plu commun vocabules. Omnicos directe
-							al desirabilite de un nov lingua franca: On refusa continuar payar custosi traductores.
-						</p>
+
+	const [state,] = useContext(AppContext);
+
+	return (
+		<>
+			<section id="team" className="team">
+				<div className="container">
+
+					<div className="section-title" data-aos="fade-up">
+						<h2>Team</h2>
+						<p>You want a change but don't have an idea? Don't worry, we also have a qualified staff to help you design and thus achieve the change you are waiting for.</p>
 					</div>
-				</div>
-				<div className="span6">
-					<div className="aligncenter">
-						<img src={Icons.creativity} alt="" />
+
+					<div className="row">
+
+						{(state.team.length > 0) ? (
+							<>
+								{state.team.map(member => (
+									<div key={member.id} className="col-xl-4 col-lg-4 col-md-6" data-aos="fade-up">
+										<div className="member">
+											<DynamicImage id={member.id} type="TEAM" className="img-fluid" alt="" />
+											<div className="member-info">
+												<div className="member-info-content">
+													<h4>{member.name}</h4>
+													<span>{member.position}</span>
+												</div>
+											</div>
+										</div>
+									</div>
+								))}
+							</>
+						) : (<></>)}
+
 					</div>
+
 				</div>
-			</div>
-			<div className="row">
-				<div className="span2 offset1 flyIn">
-					<div className="people">
-						<img className="team-thumb img-circle" src={TeamImages.Img1} alt="" />
-						<h3>John Doe</h3>
-						<p>
-							Art director
-						</p>
-					</div>
-				</div>
-				<div className="span2 flyIn">
-					<div className="people">
-						<img className="team-thumb img-circle" src={TeamImages.Img2} alt="" />
-						<h3>Mike Doe</h3>
-						<p>
-							Web developer
-						</p>
-					</div>
-				</div>
-				<div className="span2 flyIn">
-					<div className="people">
-						<img className="team-thumb img-circle" src={TeamImages.Img3} alt="" />
-						<h3>Neil Doe</h3>
-						<p>
-							Web designer
-						</p>
-					</div>
-				</div>
-				<div className="span2 flyIn">
-					<div className="people">
-						<img className="team-thumb img-circle" src={TeamImages.Img4} alt="" />
-						<h3>Mark Joe</h3>
-						<p>
-							UI designer
-						</p>
-					</div>
-				</div>
-				<div className="span2 flyIn">
-					<div className="people">
-						<img className="team-thumb img-circle" src={TeamImages.Img5} alt="" />
-						<h3>Stephen B</h3>
-						<p>
-							Digital imaging
-						</p>
-					</div>
-				</div>
-			</div>
-		</div>
-	</section>
-    );
+			</section>
+		</>
+	);
 }
 
 export default Team;
