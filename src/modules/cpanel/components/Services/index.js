@@ -72,7 +72,7 @@ const Services = () => {
         },
         {
             name: 'Description',
-            selector: 'description'
+            cell: row => <div data-tag="allowRowEvents">{row.description}</div>
         },
         {
             name: 'Status',

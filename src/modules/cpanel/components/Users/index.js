@@ -72,7 +72,7 @@ const Users = () => {
         },
         {
             name: 'email',
-            selector: 'email'
+            cell: row => <div data-tag="allowRowEvents">{row.email}</div>
         },
         {
             name: 'Full Name',

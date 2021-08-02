@@ -35,8 +35,8 @@ const Features = () => {
                                     <>
                                         {state.features.map(feature => (
                                             <li className="nav-item" key={feature.id}>
-                                                <Link className="nav-link active show"  to="#" 
-                                                      onClick={e => {e.preventDefault(); setFeatureImage(feature.id); }}>
+                                                <Link className="nav-link active show" to="#"
+                                                    onClick={e => { e.preventDefault(); setFeatureImage(feature.id); }}>
                                                     <h4>{feature.title}</h4>
                                                     <p>{feature.description}</p>
                                                 </Link>
@@ -47,11 +47,13 @@ const Features = () => {
                             </ul>
                         </div>
                         <div className="col-lg-8 ml-auto" data-aos="fade-left">
-                            <div className="tab-content ms-lg-5">
-                                <div className="tab-pane active show ms-lg-4 mt-lg-4">
-                                    <figure>
-                                        <img src={image} alt="" className="img-fluid" style={{width:550, height:400}} />
-                                    </figure>
+                            <div className="feature-image text-center">
+                                <div className="tab-content ms-lg-3">
+                                    <div className="tab-pane active show ms-lg-4 mt-lg-4">
+                                        <figure>
+                                            <img src={image} alt="" className="img-fluid" style={{ width: 650, height: 400 }} />
+                                        </figure>
+                                    </div>
                                 </div>
                             </div>
                         </div>

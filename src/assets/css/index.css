@@ -297,3 +297,13 @@ i.icon-bgdark.active {
 .green-btn button[type="button"]:hover {
   background: #22d8b6;
 }
+
+.feature-image {
+  display: block;
+}
+
+@media (max-width: 1020px) {
+  .feature-image {
+    display: none;
+  }
+}

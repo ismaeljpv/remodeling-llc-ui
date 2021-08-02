@@ -74,11 +74,11 @@ const Works = () => {
         },
         {
             name: 'Title',
-            selector: 'title'
+            cell: row => <div data-tag="allowRowEvents">{row.title}</div>
         },
         {
             name: 'Client',
-            selector: 'client'
+            cell: row => <div data-tag="allowRowEvents">{row.client}</div>
         },
         {
             name: 'Status',
@@ -89,7 +89,7 @@ const Works = () => {
             ignoreRowClick: true,
             allowOverflow: true,
             cell: row => <div data-tag="allowRowEvents" className="row">
-                <Link to={`${url}/content/${row.id}`} className="btn btn-sm btn-outline-secondary mt-2 mb-2">manage content</Link>
+                <Link to={`${url}/content/${row.id}`} className="btn btn-sm btn-outline-secondary mt-2 mb-2">gallery</Link>
                 <Link to={`${url}/${row.id}`} className="btn btn-sm btn-outline-primary mb-2">update</Link>
                 <button type="button" className="btn btn-sm btn-outline-danger mb-2" onClick={() => confirmDeleteOperation(row)} >delete</button>
             </div>
