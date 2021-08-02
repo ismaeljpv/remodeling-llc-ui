@@ -67,12 +67,12 @@ const Services = () => {
 
     const colums = useMemo(() => [
         {
-            name: 'Description',
-            selector: 'description'
-        },
-        {
             name: 'Service',
             selector: 'service'
+        },
+        {
+            name: 'Description',
+            selector: 'description'
         },
         {
             name: 'Status',

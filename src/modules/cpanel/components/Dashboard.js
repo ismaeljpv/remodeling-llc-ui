@@ -59,7 +59,6 @@ const Dashboard = () => {
             const response = await DashboardServices.getTablesInfo();
             if (response.success) {
                 setTables(response.data);
-                console.log(response.data);
             }
         }
 
