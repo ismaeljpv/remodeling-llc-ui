@@ -90,7 +90,7 @@ const ContactForm = () => {
 
     const redirectToWhatsapp = (phoneNumber) => {
         let phone = phoneNumber.replace(/[+-]/g,'');
-        window.open(`https://web.whatsapp.com/send?phone=${phone}`);
+        window.open(`https://wa.me/${phone}`);
     }
 
     return (

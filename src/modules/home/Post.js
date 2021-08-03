@@ -65,14 +65,15 @@ const Post = () => {
                                     <div className="row gy-4">
 
                                         <div className="col-lg-8">
-                                            {(evidences.length > 0) ?
+                                           <div className="d-flex me-lg-5">
+                                           {(evidences.length > 0) ?
                                                 <>
                                                     <Swiper navigation={true}>
                                                         {evidences.map(evidence => (
                                                             <SwiperSlide key={evidence.id} >
                                                                 {(evidence.type === 'PICTURE') ?
                                                                     (<DynamicImage id={evidence.id} className="img-fluid" type="POSTS" />)
-                                                                    : (<iframe width="600" height="500"
+                                                                    : (<iframe width="600" height="400"
                                                                         src={`https://www.youtube.com/embed/${evidence.videoId}`}
                                                                         title={`video-${evidence.id}`} frameborder="0"
                                                                         allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
@@ -82,6 +83,7 @@ const Post = () => {
                                                     </Swiper>
                                                 </>
                                                 : <></>}
+                                           </div>
                                         </div>
 
                                         <div className="col-lg-4">

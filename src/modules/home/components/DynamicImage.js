@@ -56,7 +56,7 @@ const DynamicImage = ({ id, className, type }) => {
 
     return (
         <>
-            <img src={image} className={className} alt="" />
+            <img src={image} className={className} alt=""/>
         </>
     )
 }
