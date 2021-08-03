@@ -72,8 +72,8 @@ const ContactForm = () => {
             contactEmail.phoneNumber = phoneNumber;
         }
         const response = await ContactServices.sendContactEmail(contactEmail);
-        console.log(response);
-        if (response.data.success) {
+        
+        if (response.success) {
             Swal.fire({
                 icon: 'success',
                 text: response.data.message
@@ -82,10 +82,10 @@ const ContactForm = () => {
         } else {
             Swal.fire({
                 icon: 'error',
-                text: response.data.message
+                text: 'Ooops! There was an error sendind the email, please try again later.'
             });
             return
-        }
+        } 
     }
 
     const redirectToWhatsapp = (phoneNumber) => {
