@@ -15,7 +15,7 @@ const Navbar = () => {
         <>
             <nav className="navbar navbar-dark bg-dark p-2">
 
-                <Link className="navbar-brand navbar-heading" to="#"><strong>Remodeling LCC</strong></Link>
+                <Link className="navbar-brand navbar-heading" to="#"><strong>Control Panel</strong></Link>
 
                 <div className="dropdown">
                     <button className="btn mobile-nav-toggle me-2" type="button" id="menuButton" data-bs-toggle="dropdown" aria-expanded="false">

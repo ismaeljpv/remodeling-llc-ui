@@ -16,7 +16,7 @@ const Sidebar = () => {
         <>
             <div className="d-flex flex-column sidebar sidebar-sticky p-3 text-white bg-dark cpanel-sidebar">
                 <a href="/#" className="d-flex mb-3 mb-md-0 p-1 me-2 text-white text-decoration-none sidebar-heading">
-                    <strong className="ms-4">Remodeling LLC</strong>
+                    <strong className="ms-4">Control Panel</strong>
                 </a>
                 <hr />
                 <ul className="nav nav-pills flex-column mb-auto">

@@ -18,7 +18,7 @@ const About = () => {
                         <div className="col-xl-6 col-lg-5 pt-5 pt-lg-0">
                             <h3 data-aos="fade-up">Who we are?</h3>
                             <p data-aos="fade-up">
-                                {(state.company) ? state.company.description : 'Remodeling 24x7'}
+                                {(state.company) ? state.company.description : '24x7 Remodeling LLC'}
                             </p>
                             {(state.goals.length > 0) ? (
                                 <>

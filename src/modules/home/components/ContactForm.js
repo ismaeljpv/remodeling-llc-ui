@@ -72,7 +72,7 @@ const ContactForm = () => {
             contactEmail.phoneNumber = phoneNumber;
         }
         const response = await ContactServices.sendContactEmail(contactEmail);
-        
+
         if (response.success) {
             Swal.fire({
                 icon: 'success',
@@ -85,12 +85,16 @@ const ContactForm = () => {
                 text: 'Ooops! There was an error sendind the email, please try again later.'
             });
             return
-        } 
+        }
     }
 
-    const redirectToWhatsapp = (phoneNumber) => {
-        let phone = phoneNumber.replace(/[+-]/g,'');
+    const redirectToWhatsapp = phoneNumber => {
+        let phone = phoneNumber.replace(/[+-]/g, '');
         window.open(`https://wa.me/${phone}`);
+    }
+
+    const redirectTo= url => {
+        window.open(url);
     }
 
     return (
@@ -119,13 +123,20 @@ const ContactForm = () => {
                                     <p>{(state.company) ? state.company.email : ''}</p>
                                 </div>
 
-                                <div className="phone mt-4">
-                                    <i className="bi bi-phone"></i>
-                                    <div className="green-btn">
-                                        <button type="button" onClick={() => redirectToWhatsapp(state.company.phoneNumber)} >Whatsapp Us</button>
+                                <div className="mt-4 row">
+                                    <div className="col phone">
+                                        <i className="bi bi-phone"></i>
+                                        <div className="green-btn">
+                                            <button type="button" onClick={() => redirectToWhatsapp(state.company.phoneNumber)} >Whatsapp</button>
+                                        </div>
+                                    </div>
+                                    <div className="col phone">
+                                        <i className="bx bxl-instagram"></i>
+                                        <div className="green-btn">
+                                            <button type="button" onClick={() => redirectTo('https://www.instagram.com/24x7remodelingllc')} >Instagram</button>
+                                        </div>
                                     </div>
                                 </div>
-
                             </div>
 
                         </div>
