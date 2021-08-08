@@ -1,48 +1,25 @@
-import { useState, useEffect } from 'react';
-import { useHistory, useParams } from 'react-router';
-import FeatureSevices from '../../../../services/FeatureServices';
+import { useState } from 'react';
+import { useHistory } from 'react-router';
+import TrustReasonServices from '../../../../services/TrustReasonServices';
 import Swal from 'sweetalert2';
 
-const UpdateFeature = () => {
+const CreateTrustReason = () => {
 
-    const { id } = useParams();
     const history = useHistory();
     const [title, setTitle] = useState("");
     const [description, setDescription] = useState("");
     const [image, setImage] = useState(null);
-    const [originalMimeType, setOriginalMimeType] = useState("");
     const [previewImage, setPreviewImage] = useState(null);
-
-    useEffect(() => {
-
-        const getFeatureById = async id => {
-            const response = await FeatureSevices.getFeatureById(id);
-            if (response.success) {
-                setTitle(response.data.title);
-                setDescription(response.data.description);
-            }
-        }
-
-        const getFeatureImage = async id => {
-            const response = await FeatureSevices.getFeatureImage(id);
-            if (response.status === 200) {
-                const blob = await response.blob();
-                setOriginalMimeType(blob.type);
-                setPreviewImage(URL.createObjectURL(blob));
-            }
-        }
-
-        getFeatureById(parseInt(id));
-        getFeatureImage(parseInt(id));
-    }, [id]);
 
     const onSubmit = async (e) => {
         e.preventDefault();
 
-        let originalFile = null;
         if (image === null) {
-            let fileName = 'image.' + originalMimeType.split("/")[1];
-            originalFile = await srcToFile(previewImage, fileName, originalMimeType);
+            Swal.fire({
+                icon: 'error',
+                text: 'Image must be set'
+            });
+            return
         }
 
         if (title === "") {
@@ -62,22 +39,21 @@ const UpdateFeature = () => {
         }
 
         let formData = new FormData();
-        formData.append('id', parseInt(id));
         formData.append('title', title);
         formData.append('description', description);
-        formData.append('Image', (image !== null) ? image : originalFile);
+        formData.append('Image', image);
 
-        const response = await FeatureSevices.updateFeature(formData);
+        const response = await TrustReasonServices.createTrustReason(formData);
         if (response.success) {
             Swal.fire({
                 icon: 'success',
-                text: 'Feature updated!'
+                text: 'New trust reason created!'
             });
-            history.push("/cpanel/features");
+            history.push("/cpanel/trustReasons");
         } else {
             Swal.fire({
                 icon: 'error',
-                title: 'Ooops!! there was an error updating the feature',
+                title: 'Ooops!! there was an error creating the trust reason',
                 text: response.message
             });
             return
@@ -85,7 +61,7 @@ const UpdateFeature = () => {
     }
 
     const cancel = () => {
-        history.push("/cpanel/features");
+        history.push("/cpanel/trustReasons");
     }
 
     const uploadImage = (e) => {
@@ -96,19 +72,12 @@ const UpdateFeature = () => {
         }
     }
 
-    const srcToFile = async (src, fileName, mimeType) => {
-        return (fetch(src)
-            .then(function(res){return res.arrayBuffer();})
-            .then(function(buf){return new File([buf], fileName, {type:mimeType});})
-        );
-    }
-
     return (
-        <> 
-        <div className="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
-            <h1 className="h2">Update Feature</h1>
-        </div>
-        <div className="container mb-2 ps-2 pe-5 pt-2">
+        <>
+            <div className="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
+                <h1 className="h2">Create Trust Reason </h1>
+            </div>
+            <div className="container mb-2 ps-2 pe-5 pt-2">
             <div className="card p-3">
                 <form className="row g-2" onSubmit={onSubmit}>
                     <div className="col-12 p-2">
@@ -132,14 +101,14 @@ const UpdateFeature = () => {
                     </div>
 
                     <div className="col-md-12 p-2 center">
-                        <button className="btn btn-outline-primary me-5" type="submit">update</button>
+                        <button className="btn btn-outline-success me-5" type="submit">create</button>
                         <button className="btn btn-outline-danger ms-5" onClick={cancel}>cancel</button>
                     </div>
                 </form>
             </div>
         </div>
-    </>
+        </>
     );
 }
 
-export default UpdateFeature;
+export default CreateTrustReason;

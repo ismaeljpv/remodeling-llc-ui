@@ -51,9 +51,9 @@ const Sidebar = () => {
                         </Link>
                     </li>
                     <li>
-                        <Link to={`${url}/team`} className="nav-link sidebar-item text-white">
-                            <i className="bi me-2 bi-people-fill" width="16" height="16" />
-                            Team
+                        <Link to={`${url}/trustReasons`} className="nav-link sidebar-item text-white">
+                            <i className="bi me-2 bi-bookmark-check" width="16" height="16" />
+                            Trust Reasons
                         </Link>
                     </li>
                     {(Authentication.hasAdminRole()) ? (
