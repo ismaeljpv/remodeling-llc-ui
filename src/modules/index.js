@@ -4,6 +4,7 @@ import Home from './home';
 import Cpanel from './cpanel';
 import Login from './login';
 import PasswordRecovery from './login/PasswordRecovery';
+import NotFound from './404/NotFound';
 
 export {
     Layout, 
@@ -11,5 +12,6 @@ export {
     Home,
     Cpanel,
     Login,
-    PasswordRecovery
+    PasswordRecovery,
+    NotFound
 };

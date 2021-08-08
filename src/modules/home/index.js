@@ -5,7 +5,7 @@ import About from './components/About';
 import Features from './components/Features';
 import Services from './components/Services';
 import Portfolio from './components/Portfolio';
-import Team from './components/Team'
+import TrustReasons from './components/TrustReasons';
 import ContactForm from './components/ContactForm';
 import Layout from './Layout';
 // Services
@@ -13,7 +13,7 @@ import CompanyServices from '../../services/CompanyServices';
 import GoalSevices from '../../services/GoalServices';
 import FeatureSevices from '../../services/FeatureServices';
 import ServiceSevices from '../../services/ServiceSevices';
-import TeamServices from '../../services/TeamServices';
+import TrustReasonServices from '../../services/TrustReasonServices';
 
 const Home = () => {
 
@@ -49,10 +49,10 @@ const Home = () => {
             }
         }
 
-        const getTeam = async () => {
-            const { success, data } = await TeamServices.getTeam();
+        const getTrustReasons = async () => {
+            const { success, data } = await TrustReasonServices.getTrustReasons();
             if (success) {
-                dispatch({ type: 'set_team', data });
+                dispatch({ type: 'set_trustReasons', data });
             }
         }
 
@@ -60,7 +60,7 @@ const Home = () => {
         getGoals();
         getFeatures();
         getServices();
-        getTeam();
+        getTrustReasons();
     }, [dispatch]);
 
     return (
@@ -71,7 +71,7 @@ const Home = () => {
                 <Features />
                 <Services />
                 <Portfolio />
-                <Team />
+                <TrustReasons />
                 <ContactForm />
             </Layout>
         </>

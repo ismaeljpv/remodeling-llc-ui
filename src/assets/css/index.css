@@ -284,6 +284,11 @@ i.icon-bgdark.active {
   min-width: 400px;
 }
 
+.reason-img {
+  width: 400px;
+  height: 300px;
+}
+
 .green-btn button[type="button"] {
   background: #1bac91;
   border: 0;

@@ -4,6 +4,7 @@ import ServiceSevices from '../../../services/ServiceSevices';
 import WorkServices from '../../../services/WorkServices';
 import EvidenceServices from '../../../services/EvidenceServices';
 import TeamServices from '../../../services/TeamServices';
+import TrustReasonServices from '../../../services/TrustReasonServices';
 
 const DynamicImage = ({ id, className, type }) => {
 
@@ -43,6 +44,14 @@ const DynamicImage = ({ id, className, type }) => {
             }
         }
 
+        const getTrustReasonImage = async id => {
+            const response = await TrustReasonServices.getTrustReasonImage(id);
+            if (response.status === 200) {
+                const blob = await response.blob();
+                setImage(URL.createObjectURL(blob));
+            }
+        }
+
         if (type === 'SERVICES') {
             getServiceThumbnail(id);
         } else if (type === 'WORKS') {
@@ -51,6 +60,8 @@ const DynamicImage = ({ id, className, type }) => {
             getEvidencePicture(id);
         } else if (type === 'TEAM') {
             getTeamMemberPhoto(id);
+        } else if (type === 'TRUST-REASON') {
+            getTrustReasonImage(id);
         }
     }, [id, type]);
 

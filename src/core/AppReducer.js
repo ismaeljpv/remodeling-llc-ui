@@ -30,6 +30,12 @@ export const reducer = (state, action) => {
         team: action.data
       }
 
+    case "set_trustReasons":
+      return {
+        ...state,
+        trustReasons: action.data
+      }
+
     default:
       return state;
   }
@@ -40,5 +46,6 @@ export const initialState = {
   goals: [],
   features: [],
   services: [],
-  team: []
+  team: [],
+  trustReasons:[]
 }

@@ -47,7 +47,6 @@ const Navbar = () => {
 						<li><a className="nav-link scrollto" href="#about" onClick={redirectTo}>About</a></li>
 						<li><a className="nav-link scrollto" href="#services" onClick={redirectTo}>Services</a></li>
 						<li><a className="nav-link scrollto " href="#portfolio" onClick={redirectTo}>Portfolio</a></li>
-						<li><a className="nav-link scrollto" href="#team" onClick={redirectTo}>Team</a></li>
 						<li><a className="nav-link scrollto" href="#contact" onClick={redirectTo}>Contact</a></li>
 
 					</> :
@@ -72,7 +71,6 @@ const Navbar = () => {
 							<li><a className="dropdown-item" href="#about" onClick={redirectTo}>About</a></li>
 							<li><a className="dropdown-item" href="#services" onClick={redirectTo}>Services</a></li>
 							<li><a className="dropdown-item" href="#portfolio" onClick={redirectTo}>Portfolio</a></li>
-							<li><a className="dropdown-item" href="#team" onClick={redirectTo}>Team</a></li>
 							<li><a className="dropdown-item" href="#contact" onClick={redirectTo}>Contact</a></li>
 
 						</> :

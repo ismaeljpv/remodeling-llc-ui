@@ -22,9 +22,9 @@ import CreateFeature from './components/Features/CreateFeature';
 import UpdateFeature from './components/Features/UpdateFeature';
 import CreateGoal from './components/Company/CreateGoal';
 import UpdateGoal from './components/Company/UpdateGoal';
-import Team from './components/Team';
-import CreateMember from './components/Team/CreateMember';
-import UpdateMember from './components/Team/UpdateMember';
+import TrustReasons from './components/TrustReasons';
+import CreateTrustReason from './components/TrustReasons/CreateTrustReason';
+import UpdateTrustReason from './components/TrustReasons/UpdateTrustReason';
 import Authentication from '../../security/Authentication';
 
 const Cpanel = () => {
@@ -91,14 +91,14 @@ const Cpanel = () => {
                             <Route path={`${url}/goal/update/:id`}>
                                 <UpdateGoal />
                             </Route>
-                            <Route path={`${url}/team`} exact>
-                                <Team />
+                            <Route path={`${url}/trustReasons`} exact>
+                                <TrustReasons />
                             </Route>
-                            <Route path={`${url}/team/create`}>
-                                <CreateMember />
+                            <Route path={`${url}/trustReasons/create`}>
+                                <CreateTrustReason />
                             </Route>
-                            <Route path={`${url}/team/:id`} exact>
-                                <UpdateMember />
+                            <Route path={`${url}/trustReasons/:id`}>
+                                <UpdateTrustReason />
                             </Route>
                             {(Authentication.hasAdminRole()) ? (
                                 <>
