@@ -100,7 +100,7 @@ const Company = () => {
     return (
         <>
             <div className="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 border-bottom">
-                <h1 className="h2">Company Information</h1>
+                <h1 className="h2 ms-2">Company Information</h1>
             </div>
             {company !== null ? (
                 <>
@@ -121,7 +121,7 @@ const Company = () => {
                         </div>
                     </div>
                     <div className="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 border-bottom">
-                        <h2 className="h2">Company Goals</h2>
+                        <h2 className="h2 ms-2">Company Goals</h2>
                         <div className="btn-toolbar mb-2 mb-md-0">
                             <Link to={`/cpanel/goal/create/${company.id}`} className="btn btn-sm btn-outline-success me-5">create goal</Link>
                         </div>

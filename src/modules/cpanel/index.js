@@ -26,6 +26,7 @@ import TrustReasons from './components/TrustReasons';
 import CreateTrustReason from './components/TrustReasons/CreateTrustReason';
 import UpdateTrustReason from './components/TrustReasons/UpdateTrustReason';
 import Authentication from '../../security/Authentication';
+import NotFound from '../404/NotFound';
 
 const Cpanel = () => {
 
@@ -100,8 +101,8 @@ const Cpanel = () => {
                             <Route path={`${url}/trustReasons/:id`}>
                                 <UpdateTrustReason />
                             </Route>
-                            {(Authentication.hasAdminRole()) ? (
-                                <>
+                            {Authentication.hasAdminRole() && (
+                                <Switch>
                                     <Route path={`${url}/users`} exact>
                                         <Users />
                                     </Route>
@@ -111,8 +112,9 @@ const Cpanel = () => {
                                     <Route path={`${url}/users/update`}>
                                         <UpdateUser />
                                     </Route>
-                                </>
-                            ) : (<></>)}
+                                </Switch>
+                            )}
+                             <Route component={NotFound} />
                         </Switch>
                     </main>
                 </div>

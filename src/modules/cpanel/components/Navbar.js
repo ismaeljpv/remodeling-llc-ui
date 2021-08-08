@@ -27,7 +27,9 @@ const Navbar = () => {
                         <li><Link className="dropdown-item" to={`${url}/services`} >Services</Link></li>
                         <li><Link className="dropdown-item" to={`${url}/works`} >Works</Link></li>
                         <li><Link className="dropdown-item" to={`${url}/trustReasons`} >Trust Reasons</Link></li>
-                        <li><Link className="dropdown-item" to={`${url}/users`} >Users</Link></li>
+                        {(Authentication.hasAdminRole()) ? (
+                            <li><Link className="dropdown-item" to={`${url}/users`} >Users</Link></li>
+                        ) : (<></>)}
                         <li><Link className="dropdown-item" to="/" >Back to home</Link></li>
                         <li><Link to="#" className="dropdown-divider" /></li>
                         <li><Link className="dropdown-item" to="#" onClick={signOut}>Sign Out</Link></li>
