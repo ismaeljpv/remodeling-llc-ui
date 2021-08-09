@@ -172,6 +172,11 @@ const Works = () => {
                                                     ))
                                                     : <span>No tags to show</span>}
                                             </div>
+                                            <div className="p-2">
+                                                 <p className="card-text"><label className="me-2">Subcontract:</label> 
+                                                   <strong>{work.subcontract ? 'Yes' : 'No'}</strong>
+                                                 </p>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>

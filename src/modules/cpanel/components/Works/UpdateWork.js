@@ -17,6 +17,7 @@ const UpdateWork = () => {
     const [status, setStatus] = useState("");
     const [client, setClient] = useState("");
     const [projectDate, setProjectDate] = useState("");
+    const [subcontract, setSubcontract] = useState(false);
     const [thumbnail, setThumbnail] = useState(null);
     const [tags, setTags] = useState([]);
     const [tag, setTag] = useState("");
@@ -33,6 +34,7 @@ const UpdateWork = () => {
                 setStatus(response.data.status);
                 setTags(response.data.tags);
                 setClient(response.data.client);
+                setSubcontract(response.data.subcontract);
                 console.log(response.data.projectDate);
                 setProjectDate(moment(response.data.projectDate).format('YYYY-MM-DD'));
             }
@@ -115,6 +117,7 @@ const UpdateWork = () => {
         formData.append('description', description);
         formData.append('client', client);
         formData.append('projectDate', projectDate);
+        formData.append('subcontract', subcontract);
         formData.append('thumbnail', (thumbnail !== null) ? thumbnail : originalFile);
         formData.append('status', status);
         formData.append('userId', profile.id);
@@ -195,9 +198,11 @@ const UpdateWork = () => {
                                     <input type="date" className="form-control" id="projectDate" name="projectDate"
                                         value={projectDate} onChange={(e) => setProjectDate(e.target.value)} />
                                 </div>
-                                <div className="col-12 p-2">
+                                <div className="col-6 p-2">
                                     <label htmlFor="tag" className="form-label">Tags</label>
-                                    <div className="pb-2">
+                                    <input className="form-control" id="tag" name="tag"
+                                        value={tag} onChange={(e) => setTag(e.target.value)} onKeyUp={addTag} />
+                                    <div className="pt-2">
                                         {(tags.length > 0) ?
                                             tags.map((t, i) => (
                                                 <span key={i} className="badge rounded-pill bg-primary me-1 ps-3 pb-2">
@@ -206,8 +211,17 @@ const UpdateWork = () => {
                                             ))
                                             : <></>}
                                     </div>
-                                    <input className="form-control" id="tag" name="tag"
-                                        value={tag} onChange={(e) => setTag(e.target.value)} onKeyUp={addTag} />
+                                </div>
+                                <div className="col-6 p-2">
+                                    <label htmlFor="type" className="form-label">¿Is Subcontract?</label>
+                                    <i data-toggle="tooltip" className="bi bi-info-circle-fill ms-2"
+                                       title="If the project is a subcontract, the client name wont be shown." />
+                                    <select className="form-select" aria-label="Select if project if subcontract"
+                                            value={subcontract ? "true" : ""  }
+                                            onChange={(e) => setSubcontract(Boolean(e.target.value))}>
+                                        <option value="">No</option>
+                                        <option value="true">Yes</option>
+                                    </select>
                                 </div>
                                 <div className="col-12 p-2">
                                     <label htmlFor="image" className="form-label">Thumbnail</label>

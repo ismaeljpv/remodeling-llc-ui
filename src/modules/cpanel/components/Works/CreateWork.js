@@ -15,6 +15,7 @@ const CreateWork = () => {
     const [client, setClient] = useState("");
     const [projectDate, setProjectDate] = useState("");
     const [thumbnail, setThumbnail] = useState(null);
+    const [subcontract, setSubcontract] = useState(false);
     const [tags, setTags] = useState([]);
     const [tag, setTag] = useState("");
     const [previewImage, setPreviewImage] = useState(null);
@@ -76,6 +77,7 @@ const CreateWork = () => {
         formData.append('client', client);
         formData.append('projectDate', projectDate);
         formData.append('thumbnail', thumbnail);
+        formData.append('subcontract', subcontract);
         formData.append('status', 'ACTIVE');
         formData.append('userId', id);
 
@@ -127,7 +129,7 @@ const CreateWork = () => {
     }
 
     return (
-        <> 
+        <>
             <div className="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
                 <h1 className="h2">Create Work Post</h1>
             </div>
@@ -154,19 +156,29 @@ const CreateWork = () => {
                             <textarea className="form-control" id="description" name="description"
                                 value={description} onChange={(e) => setDescription(e.target.value)} />
                         </div>
-                        <div className="col-12 p-2">
+                        <div className="col-6 p-2">
                             <label htmlFor="tag" className="form-label">Tags</label>
-                            <div className="pb-2">
-                                {(tags.length > 0) ? 
-                                 tags.map((t, i) => (
-                                    <span key={i} className="badge rounded-pill bg-primary me-1 ps-3 pb-2">
-                                        {t} <i className="bi bi-x pull-right tag-icon" onClick={() => removeTag(i) }></i>
-                                    </span>
-                                 )) 
-                                 : <></> }
-                            </div>
                             <input className="form-control" id="tag" name="tag"
-                                value={tag} onChange={(e) => setTag(e.target.value)} onKeyUp={addTag} />
+                                   value={tag} onChange={(e) => setTag(e.target.value)} onKeyUp={addTag} />
+                            <div className="pt-2">
+                                {(tags.length > 0) ?
+                                    tags.map((t, i) => (
+                                        <span key={i} className="badge rounded-pill bg-primary me-1 ps-3 pb-2">
+                                            {t} <i className="bi bi-x pull-right tag-icon" onClick={() => removeTag(i)}></i>
+                                        </span>
+                                    ))
+                                    : <></>}
+                            </div>
+                        </div>
+                        <div className="col-6 p-2">
+                            <label htmlFor="type" className="form-label">¿Is Subcontract?</label>
+                            <i data-toggle="tooltip" className="bi bi-info-circle-fill ms-2"
+                                       title="If the project is a subcontract, the client name wont be shown." />
+                            <select className="form-select" aria-label="Select if project if subcontract"
+                                onChange={(e) => setSubcontract(Boolean(e.target.value))}>
+                                <option value="">No</option>
+                                <option value="true">Yes</option>
+                            </select>
                         </div>
                         <div className="col-12 p-2">
                             <label htmlFor="thumbnail" className="form-label">Thumbnail</label>
