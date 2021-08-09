@@ -13,7 +13,11 @@ const Jumbotron = () => {
                         <h1>Welcome to {state.company.name}</h1>
                         <h2>If you can imagine it, we can build it</h2>
                     </>)
-                    : (<><h1>Welcome to Remodeling 24x7 LLC</h1></>)}
+                    : (
+                    <>
+                        <h1>Welcome to 24x7 Remodeling LLC</h1>
+                        <h2>If you can imagine it, we can build it</h2>
+                    </>)}
             </div>
         </section>
     );
