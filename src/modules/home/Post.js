@@ -98,7 +98,10 @@ const Post = () => {
                                                             )}
                                                         </div>
                                                     </li>
-                                                    <li><strong>Client</strong>: {work.client}</li>
+                                                    { !work.subcontract ? (
+                                                        <li><strong>Client</strong>: {work.client}</li>
+                                                    ) 
+                                                    : (<></>) }
                                                     <li><strong>Project Date</strong>: {moment(work.projectDate).format('DD/MM/YYYY')}</li>
                                                 </ul>
                                             </div>

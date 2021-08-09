@@ -1,6 +1,6 @@
 
 const Enviroment = {
-    production: true,
+    production: false,
     devApi: 'http://localhost:8085',
     prodApi: 'https://remodelingllc-api.herokuapp.com',
     getEnviroment() {
