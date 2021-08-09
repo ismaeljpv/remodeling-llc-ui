@@ -44,7 +44,7 @@ const Navbar = () => {
 				{homePage ?
 					<>
 						<li><a className="nav-link scrollto active" href="#hero" onClick={redirectTo}>Home</a></li>
-						<li><a className="nav-link scrollto" href="#about" onClick={redirectTo}>About</a></li>
+						<li><a className="nav-link scrollto" href="#about" onClick={redirectTo}>About Us</a></li>
 						<li><a className="nav-link scrollto" href="#services" onClick={redirectTo}>Services</a></li>
 						<li><a className="nav-link scrollto " href="#portfolio" onClick={redirectTo}>Portfolio</a></li>
 						<li><a className="nav-link scrollto" href="#contact" onClick={redirectTo}>Contact</a></li>
@@ -68,7 +68,7 @@ const Navbar = () => {
 					{homePage ?
 						<>
 							<li><a className="dropdown-item" href="#hero" onClick={redirectTo}>Home</a></li>
-							<li><a className="dropdown-item" href="#about" onClick={redirectTo}>About</a></li>
+							<li><a className="dropdown-item" href="#about" onClick={redirectTo}>About Us</a></li>
 							<li><a className="dropdown-item" href="#services" onClick={redirectTo}>Services</a></li>
 							<li><a className="dropdown-item" href="#portfolio" onClick={redirectTo}>Portfolio</a></li>
 							<li><a className="dropdown-item" href="#contact" onClick={redirectTo}>Contact</a></li>
