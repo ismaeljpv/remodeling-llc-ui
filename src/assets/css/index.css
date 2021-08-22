@@ -293,10 +293,12 @@ i.icon-bgdark.active {
   background: #1bac91;
   border: 0;
   padding: 10px 10px;
+  font-size: small;
   color: #fff;
   transition: 0.4s;
   border-radius: 4px;
   margin-left: 1rem;
+  width: 5rem;
 }
 
 .green-btn button[type="button"]:hover {
@@ -311,4 +313,19 @@ i.icon-bgdark.active {
   .feature-image {
     display: none;
   }
+}
+
+@media (max-width: 405px) {
+  .green-btn button[type="button"] {
+    background: #1bac91;
+    border: 0;
+    padding: 10px 10px;
+    font-size: x-small;
+    color: #fff;
+    transition: 0.4s;
+    border-radius: 4px;
+    margin-left: 1rem;
+    width: 4rem;
+  }
+  
 }
